@@ -654,65 +654,7 @@ h1 {
 }
 
 
-/* --------------------------------- Leaning-tips --------------------------------- */
-.learning-tips {
-    margin-top: 25px;
-    width: 100%;
-    max-width: 1200px;
-    padding: 25px;
-    background: pink;
-    border-radius: 20px;
-    border: 5px solid white;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
-
-.learning-tips h3 {
-    color: var(--primary-purple);
-    margin-bottom: 20px;
-    font-size: 1.6rem;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    text-align: center;
-    justify-content: center;
-}
-
-.tips-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-@media (max-width: 768px) {
-    .tips-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-.tip-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    border-left: 8px solid var(--primary-blue);
-    transition: transform 0.3s;
-}
-
-
-.tip-card h4 {
-    color: var(--primary-blue);
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.tip-card p {
-    color: #5d6d7e;
-    line-height: 1.5;
-}
-
+/* --------------------------------- Practice section --------------------------------- */
 .practice-section {
     margin-top: 25px;
     width: 100%;

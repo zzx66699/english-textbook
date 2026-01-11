@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-    <div class="hero-bg">
+    <header class="hero-bg">
         <div class="header">
             <div class="profile-box">
                 <img id="profile-avatar" src="avatar.jpg">
@@ -42,119 +42,90 @@
                 </button>
             </div>
         </div>
-    </div>
+    </header>
     
-    
-    <div class="container">
-        <img id="pageImage" class="page-image" src="page1.png" alt="教材页面">
-        <!-- 热点将通过JavaScript动态添加 -->
-    </div>
-    
-    <div class="controls">
-        <button id="prevPageBtn">
-            <i class="fas fa-arrow-left"></i> 上一页
-        </button>
+    <main>
+        <section class="container">
+            <img id="pageImage" class="page-image" src="page1.png" alt="教材页面">
+            <!-- 热点将通过JavaScript动态添加 -->
+        </section>
         
-        <button id="nextPageBtn">
-            <i class="fas fa-arrow-right"></i> 下一页
-        </button>
-        
-        <div class="page-controls">
-            <div class="page-indicator">
-                <i class="fas fa-book"></i>
-                第 <span id="currentPage">1</span> 页 / 共 4 页
-            </div>
-        </div>
-    </div>
-
-    <div class="voice-settings">
-        <h4><i class="fas fa-volume-up"></i> 语音设置</h4>
-        <div class="voice-controls">
-            <div class="rate-control">
-                <span>语速:</span>
-                <input type="range" id="rateSlider" min="0.5" max="2" step="0.1" value="1">
-                <span class="rate-value" id="rateValue">1.0</span>
-            </div>
+        <section class="controls">
+            <button id="prevPageBtn">
+                <i class="fas fa-arrow-left"></i> 上一页
+            </button>
             
-            <div class="pitch-control">
-                <span>音调:</span>
-                <input type="range" id="pitchSlider" min="0.5" max="2" step="0.1" value="1">
-                <span class="pitch-value" id="pitchValue">1.0</span>
-            </div>
+            <button id="nextPageBtn">
+                <i class="fas fa-arrow-right"></i> 下一页
+            </button>
             
-            <select id="voiceSelect" class="voice-select">
-                <option value="">选择语音</option>
-            </select>
-        </div>
-    </div>
-    
-    <div class="learning-tips" id="learningTips">
-        <h3><i class="fas fa-lightbulb"></i> 学习小贴士</h3>
-        <div class="tips-container">
-            <div class="tip-card">
-                <h4><i class="fas fa-volume-up"></i> 多听多读</h4>
-                <p>反复听英语句子并跟读，可以帮助你熟悉英语的发音和语调。</p>
-            </div>
-            <div class="tip-card">
-                <h4><i class="fas fa-microphone"></i> 大胆开口</h4>
-                <p>不要害怕发音不准，多练习才能进步。使用"读"按钮录音并评分。</p>
-            </div>
-            <div class="tip-card">
-                <h4><i class="fas fa-language"></i> 理解意思</h4>
-                <p>点击"译"按钮查看中文翻译，帮助理解英语句子的含义。</p>
-            </div>
-            <div class="tip-card">
-                <h4><i class="fas fa-pencil-alt"></i> 练习巩固</h4>
-                <p>使用"练一练"模式进行多样化的练习，巩固所学知识。</p>
-            </div>
-            <div class="tip-card">
-                <h4><i class="fas fa-repeat"></i> 反复练习</h4>
-                <p>多次练习同一句话，直到能够流利朗读并获得高分。</p>
-            </div>
-            <div class="tip-card">
-                <h4><i class="fas fa-trophy"></i> 查看进步</h4>
-                <p>使用"秀一秀"模式查看自己的学习成果和进步。</p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="practice-section" id="practiceSection">
-        <h3><i class="fas fa-pencil-alt"></i> 练一练 - 巩固所学知识</h3>
-        <div class="practice-container">
-            <div class="practice-controls">
-                <div class="question-counter">
-                    题目 <span id="currentQuestion">1</span> / <span id="totalQuestions">5</span>
+            <div class="page-controls">
+                <div class="page-indicator">
+                    <i class="fas fa-book"></i>
+                    第 <span id="currentPage">1</span> 页 / 共 4 页
                 </div>
             </div>
-            <div class="practice-question" id="practiceQuestion">
-                请选择正确的翻译：
+        </section>
+
+        <section class="voice-settings">
+            <h4><i class="fas fa-volume-up"></i> 语音设置</h4>
+            <div class="voice-controls">
+                <div class="rate-control">
+                    <span>语速:</span>
+                    <input type="range" id="rateSlider" min="0.5" max="2" step="0.1" value="1">
+                    <span class="rate-value" id="rateValue">1.0</span>
+                </div>
+                
+                <div class="pitch-control">
+                    <span>音调:</span>
+                    <input type="range" id="pitchSlider" min="0.5" max="2" step="0.1" value="1">
+                    <span class="pitch-value" id="pitchValue">1.0</span>
+                </div>
+                
+                <select id="voiceSelect" class="voice-select">
+                    <option value="">选择语音</option>
+                </select>
             </div>
-            <div class="practice-options" id="practiceOptions">
-                <!-- 练习选项将通过JavaScript动态添加 -->
+        </section>
+        
+        <section class="practice-section" id="practiceSection">
+            <h3><i class="fas fa-pencil-alt"></i> 练一练 - 巩固所学知识</h3>
+            <div class="practice-container">
+                <div class="practice-controls">
+                    <div class="question-counter">
+                        题目 <span id="currentQuestion">1</span> / <span id="totalQuestions">5</span>
+                    </div>
+                </div>
+                <div class="practice-question" id="practiceQuestion">
+                    请选择正确的翻译：
+                </div>
+                <div class="practice-options" id="practiceOptions">
+                    <!-- 练习选项将通过JavaScript动态添加 -->
+                </div>
+                <div class="practice-feedback" id="practiceFeedback"></div>
+                <div class="explanation-box" id="explanationBox">
+                    <h4><i class="fas fa-info-circle"></i> 答案解析</h4>
+                    <p id="explanationText"></p>
+                </div>
+                <button class="explanation-btn" id="explanationBtn">
+                    <i class="fas fa-lightbulb"></i> 查看解析
+                </button>
+                <button class="next-question-btn" id="nextQuestionBtn">
+                    <i class="fas fa-forward"></i> 下一题
+                </button>
+                <button class="restart-practice-btn" id="restartPracticeBtn">
+                    <i class="fas fa-redo"></i> 重新练习
+                </button>
+                <div class="practice-complete-message" id="practiceCompleteMessage">
+                    <h4><i class="fas fa-trophy"></i> 太棒了！</h4>
+                    <p>你已经完成了本页的所有练习题！</p>
+                    <p>答对题目: <span id="practiceCorrectCount">0</span> / <span id="practiceTotalCount">0</span></p>
+                    <p>你的学习进度已经更新，继续加油哦！</p>
+                </div>
             </div>
-            <div class="practice-feedback" id="practiceFeedback"></div>
-            <div class="explanation-box" id="explanationBox">
-                <h4><i class="fas fa-info-circle"></i> 答案解析</h4>
-                <p id="explanationText"></p>
-            </div>
-            <button class="explanation-btn" id="explanationBtn">
-                <i class="fas fa-lightbulb"></i> 查看解析
-            </button>
-            <button class="next-question-btn" id="nextQuestionBtn">
-                <i class="fas fa-forward"></i> 下一题
-            </button>
-            <button class="restart-practice-btn" id="restartPracticeBtn">
-                <i class="fas fa-redo"></i> 重新练习
-            </button>
-            <div class="practice-complete-message" id="practiceCompleteMessage">
-                <h4><i class="fas fa-trophy"></i> 太棒了！</h4>
-                <p>你已经完成了本页的所有练习题！</p>
-                <p>答对题目: <span id="practiceCorrectCount">0</span> / <span id="practiceTotalCount">0</span></p>
-                <p>你的学习进度已经更新，继续加油哦！</p>
-            </div>
-        </div>
-    </div>
-    
+        </section>
+    </main>
+
     <footer>
         <p>小红书石老师英语制作     咨询联系:微信 shlshyy    更多资源：小红书账号shlshyy</p>
     </footer>
