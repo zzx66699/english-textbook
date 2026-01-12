@@ -89,6 +89,7 @@ header {
 
 .header-box {
     padding-top: 15px;
+    display: flex;
 }
 
 .profile-box {
