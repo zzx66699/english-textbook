@@ -35,6 +35,7 @@ body {
     color: #2c3e50;
     min-height: 100vh;
     width: 100%;
+    text-align: center;
 }
 
 
@@ -49,6 +50,12 @@ h1 {
     align-items: center;
     gap: 14px;
     text-shadow: 3px 3px 0 white;
+}
+
+p {
+    color: #5d6d7e;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 /* buttons */
@@ -80,7 +87,17 @@ button:disabled {
 }
 
 
-/* header */
+/* containers */
+.container {
+    max-width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+
+/* layout */
+/* 1. header */
 header {
     background-image: url("cloud.png");
     background-size: cover;
@@ -88,7 +105,6 @@ header {
 }
 
 .header-box {
-    padding-top: 15px;
     display: flex;
 }
 
@@ -99,14 +115,14 @@ header {
     text-align: center;            
 }
 
-#profile-avatar {
+.profile-avatar {
     width: 88px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 50%;
 }
 
-#profile-name {
+.profile-name {
     padding: 4px 12px;
     margin-top: 4px;
     background: linear-gradient(
@@ -135,31 +151,19 @@ header {
     z-index: 1;
 }
 
+
+/* 2. mode selector */
 .mode-selector {
     gap: 16px;
     margin-top: 40px;
     padding-bottom: 32px;
-    width: 100%;
     flex-wrap: wrap;
-    text-align: center;
-}
-
-.mode-text {
-    display: block;
-    color: #5d6d7e;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 8px;
 }
 
 .mode-buttons {
     display: flex;
     justify-content: center;
-    width: 100%;
-    max-width: 1200px;
     gap: 20px;
-    margin: 0 auto;
-
 }
 
 .mode-btn {
@@ -183,7 +187,6 @@ header {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-
 .mode-btn.active:hover {
     transform: scale(1.05);     
     box-shadow:
@@ -198,28 +201,46 @@ header {
         0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
-#listenModeBtn {
+.listenModeBtn {
     background: #27ae60;
 }
 
-#learnModeBtn {
+.learnModeBtn {
     background: #8e44ad;
 }
 
-#readModeBtn {
+.readModeBtn {
     background: var(--primary-orange);
 }
 
-#showModeBtn {
+.showModeBtn {
     background: var(--primary-pink);
 }
 
-#mixModeBtn {
+.mixModeBtn {
     background: #3498db;
 }
 
 
-/* page selector */
+/* 3. main image */
+.main-img {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    touch-action: none;
+    border: 8px solid white;
+}
+
+.page-image {
+    width: 100%;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+
+/* 4. page selector */
 .controls {
     display: flex;
     justify-content: space-between;
@@ -259,28 +280,9 @@ header {
 }
 
 
-/* --------------------------------- Container --------------------------------- */
-.container {
-    position: relative;
-    width: 100%;
-    max-width: 1200px;
-    height: auto;
-    margin: 0 auto;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    background-color: white;
-    touch-action: none;
-    border: 8px solid white;
-}
 
-.page-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    user-select: none;
-    -webkit-user-drag: none;
-}
+
+
 
 
 
