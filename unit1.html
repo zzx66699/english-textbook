@@ -11,50 +11,49 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
+
     <header>
         <div class="container header-box">
-            <div class="profile-box">
-                <img class="profile-avatar" src="avatar.jpg">
-                <p class="profile-name">石老师英语</p>
-            </div>
-
-            <div class="title-box">
-                <h1><i class="fas fa-star"></i> Unit 1 We're friends <i class="fas fa-heart"></i></h1>
-            </div>
+            <img class="profile-avatar" src="avatar.jpg">
+            <p class="profile-name">石老师英语</p>
         </div>
     </header>
 
-    <section>
-        <div class="container mode-selector">
-            <p class="mode-text">点击"听、译、读、秀"四个彩色按钮开始有趣的英语学习吧！</p>
-            <div class="mode-buttons">
-                <button class="mode-btn listenModeBtn">
-                    <i class="fas fa-pencil-alt"></i> 听 
-                </button>
-                <button class="mode-btn learnModeBtn active">
-                    <i class="fas fa-book-open"></i> 译
-                </button>
-                <button class="mode-btn readModeBtn">
-                    <i class="fas fa-volume-up"></i> 读
-                </button>
-                <button class="mode-btn showModeBtn">
-                    <i class="fas fa-chart-line"></i> 秀
-                </button>
-                <button class="mode-btn mixModeBtn">
-                    <i class="fas fa-exchange-alt"></i> 混合模式
-                </button>
-            </div>
-        </div>
-    </section>
+    <main>
+        <section class="title">
+            <h1>Unit 1 We're friends</h1>
+        </section>
 
-    <section>
-        <div class="container main-img">
-            <img id="pageImage" class="page-image" src="page1.png" alt="教材页面">
-        </div>
-    </section>
-    
-    <section class="controls">
-        <div class="container">
+        <section>
+            <div class="container mode-selector">
+                <p class="mode-text">点击"听、译、读、秀"四个彩色按钮开始有趣的英语学习吧！</p>
+                <div class="mode-buttons">
+                    <button class="mode-btn listenModeBtn">
+                        <i class="fas fa-pencil-alt"></i> 听 
+                    </button>
+                    <button class="mode-btn learnModeBtn active">
+                        <i class="fas fa-book-open"></i> 译
+                    </button>
+                    <button class="mode-btn readModeBtn">
+                        <i class="fas fa-volume-up"></i> 读
+                    </button>
+                    <button class="mode-btn showModeBtn">
+                        <i class="fas fa-chart-line"></i> 秀
+                    </button>
+                    <button class="mode-btn mixModeBtn">
+                        <i class="fas fa-exchange-alt"></i> 混合模式
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container main-img">
+                <img id="pageImage" class="page-image" src="page1.png" alt="教材页面">
+            </div>
+        </section>
+        
+        <section class="controls">
             <button id="prevPageBtn">
                 <i class="fas fa-arrow-left"></i> 上一页
             </button>
@@ -69,8 +68,7 @@
                     第 <span id="currentPage">1</span> 页 / 共 4 页
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
         <section class="voice-settings">
             <h4><i class="fas fa-volume-up"></i> 语音设置</h4>
@@ -129,6 +127,7 @@
                 </div>
             </div>
         </section>
+    </main>
 
     <footer>
         <p>小红书石老师英语制作     咨询联系:微信 shlshyy    更多资源：小红书账号shlshyy</p>

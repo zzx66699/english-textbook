@@ -32,9 +32,8 @@ body {
                     transparent 12px
                 ),
                 linear-gradient(to bottom, var(--pale-yellow) 0%, var(--sky-blue) 100%);
-    color: #2c3e50;
-    min-height: 100vh;
-    width: 100%;
+    color: #282828;
+    font-size: 20px;
     text-align: center;
 }
 
@@ -42,13 +41,8 @@ body {
 /* typograpghy */
 h1 {
     color: #3498db;
-    margin-bottom: 6px;
     font-size: 2.4rem;
     font-weight: bolder;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 14px;
     text-shadow: 3px 3px 0 white;
 }
 
@@ -89,30 +83,20 @@ button:disabled {
 
 /* containers */
 .container {
-    max-width: 1200px;
     height: auto;
     margin: 0 auto;
-    padding-top: 20px;
+    padding: 20px 30px;
 }
 
 
 /* layout */
 /* 1. header */
-header {
-    background-image: url("cloud.png");
-    background-size: cover;
-    background-position: center 18%;
-}
 
 .header-box {
     display: flex;
-}
-
-.profile-box {
-    flex: 0 0 auto;
-    margin-left: 60px;
-    z-index: 2;  
-    text-align: center;            
+    align-items: center;
+    gap: 20px;
+    border: 1px solid black;
 }
 
 .profile-avatar {
@@ -123,47 +107,24 @@ header {
 }
 
 .profile-name {
-    padding: 4px 12px;
-    margin-top: 4px;
-    background: linear-gradient(
-        180deg,
-        #fffaf2 0%,
-        var(--pale-yellow) 100%
-    );
-    border: 2px solid #f0e2cf;
-    border-radius: 999px;
     color: var(--primary-pink);
     font-weight: 700;
     font-size: 1rem;
     letter-spacing: 0.5px;
-    box-shadow:
-        inset 0 1px 2px rgba(255, 255, 255, 0.9),
-        inset 0 -1px 2px rgba(0, 0, 0, 0.05),
-        0 4px 8px rgba(0, 0, 0, 0.12);
 }
-
-.title-box {
-    position: absolute;        
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    width: max-content;        
-    z-index: 1;
-}
-
 
 /* 2. mode selector */
 .mode-selector {
     gap: 16px;
     margin-top: 40px;
     padding-bottom: 32px;
-    flex-wrap: wrap;
 }
 
 .mode-buttons {
     display: flex;
     justify-content: center;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .mode-btn {
@@ -243,20 +204,14 @@ header {
 /* 4. page selector */
 .controls {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 10px;
-    margin-bottom: 25px;
     flex-wrap: wrap;
-    padding: 20px 30px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 20px 0 0 0;
 }
+
 
 .controls button {
     flex: 1;
-    min-width: 120px;
     justify-content: center;
 }
 
@@ -274,16 +229,6 @@ header {
     flex: 2.5;
     justify-content: center;
 }
-
-#prevPageBtn, #nextPageBtn {
-    width: 300px
-}
-
-
-
-
-
-
 
 
 .speak-hotspot, .translate-hotspot, .score-hotspot {
@@ -834,8 +779,6 @@ header {
 /* --------------------------------- Voice-setting --------------------------------- */
 .voice-settings {
     margin-top: 25px;
-    width: 100%;
-    max-width: 1200px;
     padding: 20px;
     background-color: white;
     border-radius: 15px;
@@ -866,7 +809,6 @@ header {
     background-color: white;
     font-size: 1rem;
     color: #2c3e50;
-    min-width: 200px;
 }
 
 .rate-control, .pitch-control {
@@ -882,7 +824,6 @@ header {
 }
 
 .rate-value, .pitch-value {
-    min-width: 40px;
     text-align: center;
     font-weight: bold;
     color: var(--primary-blue);
@@ -957,7 +898,6 @@ footer {
     
     .controls button {
         width: 100%;
-        min-width: unset;
     }
     
     .hotspot-controls, .page-controls {
