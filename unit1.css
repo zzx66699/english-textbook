@@ -1,19 +1,23 @@
 :root {
-    --primary-blue: #009bde;   /* ✅ */
-    --primary-green: #2ecc71;
-    --primary-purple: #B647E7; /* ✅ */
     --primary-orange: #f68c32;
-    --primary-pink: #e84393; /* ✅ */
-    --primary-red: #e74c3c;
-    --light-blue: #bde0fe;
-    --light-green: #b8e994;
-    --light-yellow: #ffeaa7;
-    --light-orange: #FAB685; /* ✅ */
+    --primary-blue: #7cd3f6;  
+    --primary-green: #c3c978;
+    --primary-pink: #f5a3aa; 
+    --primary-black: #1a1c1b; 
+    --primary-yellow: #f9fbe6; 
+    --primary-red: #ee877e;
+    --light-yellow: #fef9f5;
+    --light-blue: #d6eaff;
+    --light-orange: #fcc99e; 
+    --light-green: #e9fbef;
+
+
     --light-pink: #ff99c8;
     --sky-blue: #d6eaff;
-    --pale-yellow: #fef9f5;  /* ✅ */
+    --pale-yellow:   /* ✅ */
     --border-color: #bcdffc; 
     --text-orange: #a65d3b;
+        --primary-purple: #B647E7; /* ✅ */
 }
 
 * {
@@ -24,14 +28,7 @@
 }
 
 body {
-    background: repeating-linear-gradient(
-                    0deg,
-                    rgba(255, 255, 255, 0.2) 1px,
-                    rgba(255, 255, 255, 0.2) 4px,
-                    transparent 1px,
-                    transparent 12px
-                ),
-                linear-gradient(to bottom, var(--pale-yellow) 0%, var(--sky-blue) 100%);
+    background: var(--light-blue);
     color: #282828;
     font-size: 20px;
     text-align: center;
@@ -39,64 +36,32 @@ body {
 
 
 /* typograpghy */
-h1 {
-    color: #3498db;
-    font-size: 2.4rem;
-    font-weight: bolder;
-    text-shadow: 3px 3px 0 white;
-}
 
-p {
-    color: #5d6d7e;
-    font-size: 1.2rem;
-    font-weight: 600;
+p,
+span {
+    color: var(--primary-black);
+    font-size: 1rem;
 }
 
 /* buttons */
 button {
-    color: white;
     border: none;
     padding: 12px 24px;
     border-radius: 12px;
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
-}
-
-button:hover:not(:disabled) {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-button:disabled {
-    background-color: #bdc3c7;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-
-/* containers */
-.container {
-    height: auto;
-    margin: 0 auto;
-    padding: 20px 30px;
 }
 
 
 /* layout */
 /* 1. header */
-
 .header-box {
     display: flex;
     align-items: center;
     gap: 20px;
-    border: 1px solid black;
+    padding: 20px 50px;
+    background-color: var(--light-blue);
 }
 
 .profile-avatar {
@@ -107,67 +72,57 @@ button:disabled {
 }
 
 .profile-name {
-    color: var(--primary-pink);
     font-weight: 700;
     font-size: 1rem;
     letter-spacing: 0.5px;
 }
 
-/* 2. mode selector */
+.burger {
+    background: black;
+    margin-left: auto; 
+    width: 30px;
+}
+
+
+/* 2. title */
+.title {
+    padding: 20px 50px;
+}
+
+
+/* 3. mode selector */
 .mode-selector {
     gap: 16px;
-    margin-top: 40px;
-    padding-bottom: 32px;
+    padding: 20px 50px;
+    background-color: var(--light-yellow);
 }
 
 .mode-buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
     flex-wrap: wrap;
+    margin-top: 20px;
+    
 }
 
 .mode-btn {
-    padding: 12px 24px; 
-    font-size: 1.1rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 500;
     border-radius: 16px;
     box-shadow: 0 6px 14px rgba(0,0,0,0.12);
-    text-shadow: none;
 }
 
-.mode-btn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-}
-
-.mode-btn:not(.active):hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-
-.mode-btn.active:hover {
+.mode-btn:hover, .mode-btn:focus {
     transform: scale(1.05);     
-    box-shadow:
-        0 0 0 4px white,
-        0 8px 25px rgba(0, 0, 0, 0.2);
-}
-
-.mode-btn.active {
-    transform: scale(1.05);
-    box-shadow:
-        0 0 0 4px white,
-        0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .listenModeBtn {
-    background: #27ae60;
+    background: var(--primary-green);
 }
 
 .learnModeBtn {
-    background: #8e44ad;
+    background: var(--primary-blue);
 }
 
 .readModeBtn {
@@ -178,26 +133,15 @@ button:disabled {
     background: var(--primary-pink);
 }
 
-.mixModeBtn {
-    background: #3498db;
-}
-
 
 /* 3. main image */
 .main-img {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    background-color: white;
-    touch-action: none;
-    border: 8px solid white;
+    margin: 30px 20px 10px 20px;
 }
 
 .page-image {
     width: 100%;
-    user-select: none;
-    -webkit-user-drag: none;
+    border-radius: 20px;
 }
 
 
@@ -205,580 +149,33 @@ button:disabled {
 .controls {
     display: flex;
     align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    margin: 0 30px;
 }
 
-
-.controls button {
-    flex: 1;
-    justify-content: center;
-}
-
-#prevPageBtn {
-    background: linear-gradient(145deg, var(--primary-green), #27ae60);
-}
-
-#nextPageBtn {
-    background: linear-gradient(145deg, var(--primary-red), #c0392b);
-}
-
-.page-controls {
-    display: flex;
-    gap: 15px;
-    flex: 2.5;
-    justify-content: center;
-}
-
-
-.speak-hotspot, .translate-hotspot, .score-hotspot {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 1.4rem;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    border: 4px solid white;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-    position: relative;
-    animation: float 3s infinite ease-in-out;
-}
-
-.speak-hotspot {
-    background: radial-gradient(circle, var(--primary-green) 0%, #27ae60 100%);
-    color: white;
-    animation-delay: 0s;
-}
-
-.translate-hotspot {
-    background: radial-gradient(circle, var(--primary-purple) 0%, #8e44ad 100%);
-    color: white;
-    animation-delay: 0.5s;
-}
-
-.score-hotspot {
-    background: radial-gradient(circle, var(--primary-yellow) 0%, #f39c12 100%);
-    color: #2c3e50;
-    animation-delay: 1s;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-}
-
-.speak-hotspot:hover, .translate-hotspot:hover, .score-hotspot:hover {
-    transform: scale(1.15);
-    animation: none;
-}
-
-.speak-hotspot.active, .translate-hotspot.active, .score-hotspot.active {
-    animation: active-pulse 1s infinite;
-}
-
-.speak-hotspot.active {
-    background: radial-gradient(circle, #27ae60 0%, #2ecc71 100%);
-    box-shadow: 0 0 0 8px rgba(46, 204, 113, 0.3);
-}
-
-.translate-hotspot.active {
-    background: radial-gradient(circle, #8e44ad 0%, #B647E7 100%);
-    box-shadow: 0 0 0 8px rgba(155, 89, 182, 0.3);
-}
-
-.score-hotspot.active {
-    background: radial-gradient(circle, #f39c12 0%, #f1c40f 100%);
-    box-shadow: 0 0 0 8px rgba(241, 196, 15, 0.3);
-}
-
-.speak-hotspot.editing, .translate-hotspot.editing, .score-hotspot.editing {
-    animation: none;
-    z-index: 100;
-    cursor: move;
-    background: radial-gradient(circle, var(--primary-blue) 0%, #2980b9 100%);
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0px); }
-}
-
-@keyframes active-pulse {
-    0% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0,0,0,0.1); }
-    50% { transform: scale(1.2); box-shadow: 0 0 0 15px rgba(0,0,0,0.05); }
-    100% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0,0,0,0.1); }
-}
-
-/* 翻译文本框样式 */
-.translation-box {
-    position: absolute;
-    background: linear-gradient(145deg, var(--primary-purple), #8e44ad);
-    color: white;
-    padding: 15px 20px;
-    border-radius: 15px;
-    font-size: 1.1rem;
-    max-width: 280px;
-    z-index: 20;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    border: 4px solid white;
-    transform: none;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s, transform 0.4s;
-    line-height: 1.5;
-}
-
-.translation-box.show {
-    opacity: 1;
-    transform: translateY(15px);
-    pointer-events: auto;
-}
-
-.translation-box::after {
-    content: '';
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-bottom: 12px solid var(--primary-purple);
-}
-
-/* 朗读评分文本框样式 */
-.recording-box {
-    position: absolute;
-    background: linear-gradient(145deg, var(--primary-yellow), #f39c12);
-    color: #2c3e50;
-    padding: 20px;
-    border-radius: 20px;
-    font-size: 1rem;
-    max-width: 320px;
-    z-index: 20;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    border: 5px solid white;
-    transform: none;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s, transform 0.4s;
-    line-height: 1.5;
-}
-
-.recording-box.show {
-    opacity: 1;
-    transform: translateY(15px);
-    pointer-events: auto;
-}
-
-.recording-box::after {
-    content: '';
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-bottom: 15px solid var(--primary-yellow);
-}
-
-.recording-box h4 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-size: 1.3rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-align: center;
-    justify-content: center;
-}
-
-.recording-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 10px;
-}
-
-.recording-btn {
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
-}
-
-.recording-btn:hover:not(:disabled) {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-#recordBtnBox {
-    background: linear-gradient(145deg, var(--primary-red), #c0392b);
-    color: white;
-}
-
-#stopRecordBtnBox {
-    background: linear-gradient(145deg, #95a5a6, #7f8c8d);
-    color: white;
-}
-
-#playRecordBtnBox {
-    background: linear-gradient(145deg, var(--primary-blue), #2980b9);
-    color: white;
-}
-
-#submitRecordBtnBox {
-    background: linear-gradient(145deg, var(--primary-green), #27ae60);
-    color: white;
-}
-
-.recording-status {
-    font-size: 0.9rem;
-    color: #2c3e50;
-    margin-top: 12px;
-    text-align: center;
-    padding: 8px;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
-    font-weight: 600;
-}
-
-.recording-visualizer {
-    height: 25px;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-top: 12px;
-    position: relative;
-}
-
-.recording-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--primary-red), #e74c3c);
-    transition: width 0.1s;
-    border-radius: 12px;
-}
-
-/* 秀一秀热点样式 */
-.show-hotspot {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    animation: float 3s infinite ease-in-out;
-    animation-delay: 1.5s;
-    background: radial-gradient(circle, var(--primary-pink) 0%, #ff99c8 100%);
-    box-shadow: 0 6px 15px rgba(232, 67, 147, 0.4);
-    border: 4px solid white;
-    font-weight: bold;
-    font-size: 1.4rem;
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-}
-
-.show-hotspot:hover {
-    transform: scale(1.15);
-    animation: none;
-}
-
-.show-hotspot.active {
-    animation: active-pulse 1s infinite;
-    background: radial-gradient(circle, #ff99c8 0%, #e84393 100%);
-    box-shadow: 0 0 0 8px rgba(232, 67, 147, 0.3);
-}
-
-.show-hotspot.editing {
-    animation: none;
-    z-index: 100;
-    cursor: move;
-    background: radial-gradient(circle, var(--primary-blue) 0%, #2980b9 100%);
-}
-
-/* 秀一秀文本框样式 */
-.show-box {
-    position: absolute;
-    background: linear-gradient(145deg, var(--primary-pink), #ff99c8);
-    color: white;
-    padding: 20px;
-    border-radius: 20px;
-    font-size: 1rem;
-    max-width: 350px;
-    z-index: 20;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    border: 5px solid white;
-    transform: none;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s, transform 0.4s;
-    line-height: 1.5;
-}
-
-.show-box.show {
-    opacity: 1;
-    transform: translateY(15px);
-    pointer-events: auto;
-}
-
-.show-box::after {
-    content: '';
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-bottom: 15px solid var(--primary-pink);
-}
-
-.show-box h4 {
-    color: white;
-    margin-bottom: 15px;
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-align: center;
-    justify-content: center;
-}
-
-.show-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.show-stat-item {
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 12px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.show-stat-value {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.show-stat-label {
-    font-size: 0.9rem;
-    opacity: 0.9;
-}
-
-
-/* --------------------------------- Practice section --------------------------------- */
-.practice-section {
-    margin-top: 25px;
-    width: 100%;
-    max-width: 1200px;
-    padding: 25px;
-    background: linear-gradient(135deg, var(--light-blue), var(--light-green));
-    border-radius: 20px;
-    border: 5px solid white;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    display: none;
-}
-
-.practice-section.show {
-    display: block;
-}
-
-.practice-section h3 {
-    color: var(--primary-green);
-    margin-bottom: 20px;
-    font-size: 1.6rem;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    text-align: center;
-    justify-content: center;
-}
-
-.practice-container {
-    background-color: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-.practice-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.question-counter {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--primary-blue);
-    background-color: var(--light-blue);
-    padding: 10px 20px;
-    border-radius: 10px;
-}
-
-.practice-question {
-    font-size: 1.4rem;
-    margin-bottom: 30px;
-    color: var(--primary-blue);
-    font-weight: 600;
-    line-height: 1.5;
-}
-
-.practice-options {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-@media (max-width: 768px) {
-    .practice-options {
-        grid-template-columns: 1fr;
-    }
-}
-
-.practice-option {
-    padding: 15px;
-    background-color: var(--light-blue);
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: all 0.3s;
-    border: 3px solid transparent;
-}
-
-.practice-option:hover {
-    background-color: var(--primary-blue);
-    color: white;
-    transform: scale(1.02);
-}
-
-.practice-option.correct {
-    background-color: var(--primary-green);
-    color: white;
-    border-color: white;
-}
-
-.practice-option.wrong {
-    background-color: var(--primary-red);
-    color: white;
-    border-color: white;
-}
-
-.practice-feedback {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 10px;
-    display: none;
-}
-
-.practice-feedback.correct {
-    background-color: var(--light-green);
-    color: var(--primary-green);
-    display: block;
-}
-
-.practice-feedback.wrong {
-    background-color: var(--light-pink);
-    color: var(--primary-red);
-    display: block;
-}
-
-.explanation-btn {
-    background: linear-gradient(145deg, var(--primary-purple), #8e44ad);
-    color: white;
-    margin-top: 20px;
-    display: none;
-}
-
-.next-question-btn {
-    background: linear-gradient(145deg, var(--primary-green), #27ae60);
-    color: white;
-    margin-top: 20px;
-    display: none;
-}
-
-.restart-practice-btn {
-    background: linear-gradient(145deg, var(--primary-orange), #d35400);
-    color: white;
-    margin-top: 20px;
-    display: none;
-}
-
-.explanation-box {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    border-left: 5px solid var(--primary-purple);
-    display: none;
-}
-
-.explanation-box h4 {
-    color: var(--primary-purple);
-    margin-bottom: 10px;
-    font-size: 1.2rem;
+.page-control {
+    margin-right: auto;
 }
 
-.explanation-box p {
-    color: #5d6d7e;
-    line-height: 1.5;
+.prevPageBtn {
+    background: var(--light-orange);
 }
 
-.practice-complete-message {
-    text-align: center;
-    padding: 30px;
-    background: linear-gradient(135deg, var(--light-green), var(--light-yellow));
-    border-radius: 15px;
-    margin-top: 20px;
-    display: none;
+.nextPageBtn {
+    background: var(--primary-red);
 }
 
-.practice-complete-message h4 {
-    color: var(--primary-green);
-    font-size: 1.6rem;
-    margin-bottom: 15px;
+.page-indicator {
+    margin-left: auto;
 }
 
-.practice-complete-message p {
-    color: #2c3e50;
-    font-size: 1.1rem;
-    margin-bottom: 20px;
+.page-indicator i {
+    display: inline;
 }
 
 
-/* --------------------------------- Voice-setting --------------------------------- */
+/* 5. voice-settings */
 .voice-settings {
-    margin-top: 25px;
+    margin: 40px 30px 50px 30px;
     padding: 20px;
     background-color: white;
     border-radius: 15px;
@@ -786,18 +183,11 @@ button:disabled {
     border: 3px solid var(--light-blue);
 }
 
-.voice-settings h4 {
-    color: var(--primary-blue);
-    margin-bottom: 15px;
-    font-size: 1.3rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
 .voice-controls {
+    margin-top: 10px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
 }
@@ -808,204 +198,18 @@ button:disabled {
     border: 2px solid var(--primary-blue);
     background-color: white;
     font-size: 1rem;
-    color: #2c3e50;
+    color: var(--primary-black);
 }
 
-.rate-control, .pitch-control {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #2c3e50;
-    font-weight: 500;
+
+/* footer */
+footer {
+    margin-bottom: 30px;
 }
 
-.rate-control input, .pitch-control input {
-    width: 150px;
-}
-
-.rate-value, .pitch-value {
-    text-align: center;
-    font-weight: bold;
-    color: var(--primary-blue);
-}
-
-.score-result {
-    margin-top: 15px;
-    padding: 20px;
-    border-radius: 15px;
-    display: none;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    animation: pop-in 0.5s;
-    border: 4px solid white;
-}
-
-@keyframes pop-in {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-.score-excellent {
-    background: linear-gradient(135deg, var(--primary-green), #27ae60);
-    color: white;
-}
-
-.score-good {
-    background: linear-gradient(135deg, var(--primary-yellow), #f39c12);
-    color: #2c3e50;
-}
-
-.score-need-improvement {
-    background: linear-gradient(135deg, var(--primary-red), #c0392b);
-    color: white;
-}
-
-.star-rating {
+.contact {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
-    font-size: 2rem;
-}
-
-.star {
-    color: #f1c40f;
-    text-shadow: 0 0 5px rgba(241, 196, 15, 0.7);
-}
-
-footer {
-    margin-top: 30px;
-    width: 100%;
-    max-width: 1200px;
-    text-align: center;
-    color: #e74c3c; 
-    font-size: 1.1rem; 
-    padding: 20px;
-    font-weight: 700; 
-    background: white;
-    border-radius: 15px; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
-    border: 3px solid var(--light-blue);
-}
-
-
-@media (max-width: 768px) {
-    .controls {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .controls button {
-        width: 100%;
-    }
-    
-    .hotspot-controls, .page-controls {
-        margin-left: 0;
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .voice-controls {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .speak-hotspot,
-    .translate-hotspot,
-    .score-hotspot,
-    .show-hotspot {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
-    }
-    
-    .hotspot-group {
-        gap: 15px;
-    }
-    
-    .translation-box,
-    .recording-box,
-    .show-box {
-        max-width: 250px;
-        font-size: 1rem;
-    }
-    
-    .tips-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-.action-group {
-    display: flex;
-    gap: 10px;
-    pointer-events: auto;
-}
-
-.hotspot-group {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    z-index: 10;
-}
-
-.text-area {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-}
-
-.text-area:hover {
-    outline: 1.5px dashed rgba(52, 152, 219, 0.6);
-}
-
-.action-group {
-    display: none;
-}
-
-.hotspot-group.mix-mode .action-group {
-    display: flex;
-}
-
-/* ===== 修复混合模式下 hotspot 文字不显示的问题 ===== */
-
-/* 让 hotspot 支持“图标 + 文字”纵向排列 */
-.speak-hotspot,
-.translate-hotspot,
-.score-hotspot {
-    flex-direction: column;      /* 关键 */
-    gap: 4px;
-    font-size: 0.9rem;           /* 控制文字大小 */
-    line-height: 1;
-}
-
-/* hotspot 里的图标单独放大一点 */
-.speak-hotspot i,
-.translate-hotspot i,
-.score-hotspot i {
-    font-size: 1.4rem;
-}
-
-/* 如果 hotspot 里是纯文字（JS innerText），也能正常显示 */
-.speak-hotspot,
-.translate-hotspot,
-.score-hotspot {
-    text-align: center;
-}
-
-/* 默认隐藏文字（只显示 icon） */
-.speak-hotspot span,
-.translate-hotspot span,
-.score-hotspot span {
-    display: none;
-}
-
-/* 混合模式下显示文字 */
-.hotspot-group.mix-mode .speak-hotspot span,
-.hotspot-group.mix-mode .translate-hotspot span,
-.hotspot-group.mix-mode .score-hotspot span {
-    display: block;
-    font-size: 0.75rem;
+    gap: 30px;
+    flex-wrap: wrap;
 }

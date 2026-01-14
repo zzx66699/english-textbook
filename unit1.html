@@ -7,31 +7,33 @@
     <!-- font  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="unit1.css">
+    
     <!-- firework effect library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
     <header>
-        <div class="container header-box">
-            <img class="profile-avatar" src="avatar.jpg">
+        <div class="header-box">
+            <img class="profile-avatar" src="images/avatar.jpg" alt="an avatar of teacher shi">
             <p class="profile-name">石老师英语</p>
+            <img class="burger" src="images/burger.png">
         </div>
     </header>
 
     <main>
-        <section class="title">
+        <!-- <section class="title">
             <h1>Unit 1 We're friends</h1>
-        </section>
+        </section> -->
 
         <section>
-            <div class="container mode-selector">
+            <div class="mode-selector">
                 <p class="mode-text">点击"听、译、读、秀"四个彩色按钮开始有趣的英语学习吧！</p>
                 <div class="mode-buttons">
                     <button class="mode-btn listenModeBtn">
                         <i class="fas fa-pencil-alt"></i> 听 
                     </button>
-                    <button class="mode-btn learnModeBtn active">
+                    <button class="mode-btn learnModeBtn">
                         <i class="fas fa-book-open"></i> 译
                     </button>
                     <button class="mode-btn readModeBtn">
@@ -40,47 +42,43 @@
                     <button class="mode-btn showModeBtn">
                         <i class="fas fa-chart-line"></i> 秀
                     </button>
-                    <button class="mode-btn mixModeBtn">
-                        <i class="fas fa-exchange-alt"></i> 混合模式
-                    </button>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="container main-img">
-                <img id="pageImage" class="page-image" src="page1.png" alt="教材页面">
+            <div class="main-img">
+                <img id="pageImage" class="page-image" src="page1.png" alt="textbook page">
             </div>
         </section>
         
         <section class="controls">
-            <button id="prevPageBtn">
-                <i class="fas fa-arrow-left"></i> 上一页
-            </button>
+            <div class="page-control">
+                <button class="prevPageBtn" id="prevPageBtn">
+                    <i class="fas fa-arrow-left"></i> 上一页
+                </button>
+                
+                <button class="nextPageBtn" id="nextPageBtn">
+                    <i class="fas fa-arrow-right"></i> 下一页
+                </button>
+            </div>
             
-            <button id="nextPageBtn">
-                <i class="fas fa-arrow-right"></i> 下一页
-            </button>
-            
-            <div class="page-controls">
-                <div class="page-indicator">
-                    <i class="fas fa-book"></i>
-                    第 <span id="currentPage">1</span> 页 / 共 4 页
-                </div>
+            <div class="page-indicator">
+                <p><i class="fas fa-book"></i> 第 <span id="currentPage">1</span> 页 / 共 4 页</p>
             </div>
         </section>
 
         <section class="voice-settings">
-            <h4><i class="fas fa-volume-up"></i> 语音设置</h4>
+            <p><i class="fas fa-volume-up"></i> 语音设置</p>
             <div class="voice-controls">
                 <div class="rate-control">
-                    <span>语速:</span>
+                    <p>语速:</p>
                     <input type="range" id="rateSlider" min="0.5" max="2" step="0.1" value="1">
                     <span class="rate-value" id="rateValue">1.0</span>
                 </div>
                 
                 <div class="pitch-control">
-                    <span>音调:</span>
+                    <p>音调:</p>
                     <input type="range" id="pitchSlider" min="0.5" max="2" step="0.1" value="1">
                     <span class="pitch-value" id="pitchValue">1.0</span>
                 </div>
@@ -91,7 +89,7 @@
             </div>
         </section>
         
-        <section class="practice-section" id="practiceSection">
+        <!-- <section class="practice-section" id="practiceSection">
             <h3><i class="fas fa-pencil-alt"></i> 练一练 - 巩固所学知识</h3>
             <div class="practice-container">
                 <div class="practice-controls">
@@ -103,7 +101,6 @@
                     请选择正确的翻译：
                 </div>
                 <div class="practice-options" id="practiceOptions">
-                    <!-- 练习选项将通过JavaScript动态添加 -->
                 </div>
                 <div class="practice-feedback" id="practiceFeedback"></div>
                 <div class="explanation-box" id="explanationBox">
@@ -126,11 +123,15 @@
                     <p>你的学习进度已经更新，继续加油哦！</p>
                 </div>
             </div>
-        </section>
+        </section> -->
     </main>
 
     <footer>
-        <p>小红书石老师英语制作     咨询联系:微信 shlshyy    更多资源：小红书账号shlshyy</p>
+        <p>小红书石老师英语制作</p> 
+        <p class="contact">    
+            <span>咨询联系:微信 shlshyy</span>      
+            <span>更多资源：小红书账号shlshyy</span>
+        </p>
     </footer>
     <script src="data.js"></script>
     <script src="unit1.js"></script>
