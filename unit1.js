@@ -1,4 +1,4 @@
-import {pages} from data.js
+import {pages} from "./data.js"
 
 const listenModeBtn = document.getElementById("listen-mode-btn")
 const learnModeBtn  = document.getElementById("learn-mode-btn")
