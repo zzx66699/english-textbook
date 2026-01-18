@@ -83,10 +83,8 @@ button {
     letter-spacing: 0.5px;
 }
 
-.burger {
-    background: black;
+.fa-bars {
     margin-left: auto; 
-    width: 30px;
 }
 
 
