@@ -1,61 +1,77 @@
-const MODE = {
-    LISTEN: 'listen',
-    TRANSLATE: 'translate',
-    READ: 'read',
-    SHOW: 'show'
-};
+import {pages} from data.js
 
-let currentMode = MODE.LISTEN; 
+const listenModeBtn = document.getElementById("listen-mode-btn")
+const learnModeBtn  = document.getElementById("learn-mode-btn")
+const readModeBtn   = document.getElementById("read-mode-btn")
+const showModeBtn   = document.getElementById("show-mode-btn")
+const prevPageBtn   = document.getElementById("prev-page-btn")
+const nextPageBtn   = document.getElementById("next-page-btn")
 
-const listenModeBtn = document.getElementById('listenModeBtn');
-const learnModeBtn  = document.getElementById('learnModeBtn');
-const readModeBtn   = document.getElementById('readModeBtn');
-const showModeBtn   = document.getElementById('showModeBtn');
-const modeButtons = [
-    listenModeBtn,
-    learnModeBtn,
-    readModeBtn,
-    showModeBtn
-];
+// mode selector
+listenModeBtn.addEventListener("change", listenMode)
+
+function listenMode() {
+    console.log("listen")
+    document.getElementById("translate-checkbox").style.display = "block";
+
+}
+
+learnModeBtn.addEventListener("change", learnMode)
+
+function learnMode() {
+    console.log("learn")
+    document.getElementById("translate-checkbox").style.display = "none";
+}
+
+readModeBtn.addEventListener("change", readMode)
 
 
-// -----------------------------初始化 ----------------------------- //
-// 初始化页面
-function init() {
+function readMode() {
+    console.log("read")
+    document.getElementById("translate-checkbox").style.display = "none";
+}
 
-    // 模式按钮绑定
-    listenModeBtn.addEventListener('click', () => setMode(MODE.LISTEN));
-    learnModeBtn.addEventListener('click',  () => setMode(MODE.TRANSLATE));
-    readModeBtn.addEventListener('click',   () => setMode(MODE.READ));
-    showModeBtn.addEventListener('click',   () => setMode(MODE.SHOW));
-    
-    // 加载所有数据
-    loadAllData();
+showModeBtn.addEventListener("change", showMode)
 
-    setMode(MODE.LISTEN); 
+function showMode() {
+    console.log("show")
+    document.getElementById("translate-checkbox").style.display = "none";
 }
 
 
+// page selector
+let count = 1; 
 
-// -----------------------------模式系统 ----------------------------- //
-function setMode(mode) {
-    currentMode = mode;
+nextPageBtn.addEventListener("click", pageIncrement) 
 
-    modeButtons.forEach(btn => btn.classList.remove('active'));
-
-    switch (mode) {
-        case MODE.LISTEN:
-            listenModeBtn.classList.add('active');
-            break;
-        case MODE.TRANSLATE:
-            learnModeBtn.classList.add('active');
-            break;
-        case MODE.READ:
-            readModeBtn.classList.add('active');
-            break;
-        case MODE.SHOW:
-            showModeBtn.classList.add('active');
-            break;
+function pageIncrement() {
+    if (count < 4){
+        count ++
+        pageRender()
+        pageNumberRender()
     }
 
+}
+
+prevPageBtn.addEventListener("click", pageDecrement) 
+
+function pageDecrement() {
+    if (count > 1){
+        count --
+        pageRender()
+        pageNumberRender()
+    }
+}
+
+function pageRender() {
+    document.getElementById("main-img").innerHTML = `
+    <img id="pageImage" 
+        class="page-image" 
+        src="page${count}.png" 
+        alt="textbook page">
+    </img>`
+}
+
+function pageNumberRender() {
+    document.getElementById("currentPage").innerHTML = count
 }

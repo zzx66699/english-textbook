@@ -22,43 +22,42 @@
     </header>
 
     <main>
-        <!-- <section class="title">
-            <h1>Unit 1 We're friends</h1>
-        </section> -->
-
         <section>
-            <div class="mode-selector">
+            <div class="container mode-selector" id="mode-selector">
                 <p class="mode-text">点击"听、译、读、秀"四个彩色按钮开始有趣的英语学习吧！</p>
                 <div class="mode-buttons">
-                    <button class="mode-btn listenModeBtn">
-                        <i class="fas fa-pencil-alt"></i> 听 
-                    </button>
-                    <button class="mode-btn learnModeBtn">
-                        <i class="fas fa-book-open"></i> 译
-                    </button>
-                    <button class="mode-btn readModeBtn">
-                        <i class="fas fa-volume-up"></i> 读
-                    </button>
-                    <button class="mode-btn showModeBtn">
-                        <i class="fas fa-chart-line"></i> 秀
-                    </button>
+                    <input type="radio" id="listen-mode-btn" name="mode" value="listen-mode">
+                    <label for="listen-mode-btn" class="mode-label listen-mode-label"><i class="fas fa-pencil-alt"></i> 听 </label>
+
+                    <input type="radio" id="learn-mode-btn" name="mode" value="learn-mode">
+                    <label for="learn-mode-btn" class="mode-label learn-mode-label"><i class="fas fa-book-open"></i> 译</label>
+
+                    <input type="radio" id="read-mode-btn" name="mode" value="read-mode">
+                    <label for="read-mode-btn" class="mode-label read-mode-label"><i class="fas fa-volume-up"></i> 读</label>    
+
+                    <input type="radio" id="show-mode-btn" name="mode" value="show-mode">
+                    <label for="show-mode-btn" class="mode-label show-mode-label"><i class="fas fa-chart-line"></i> 秀</label>    
+                </div>
+                <div class="translate-checkbox" id="translate-checkbox">
+                    <input type="checkbox" id="need-translate">
+                    <label for="need-translate">翻译</label>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="main-img">
+            <div class="main-img" id="main-img">
                 <img id="pageImage" class="page-image" src="page1.png" alt="textbook page">
             </div>
         </section>
         
         <section class="controls">
             <div class="page-control">
-                <button class="prevPageBtn" id="prevPageBtn">
+                <button class="prev-page-btn" id="prev-page-btn">
                     <i class="fas fa-arrow-left"></i> 上一页
                 </button>
                 
-                <button class="nextPageBtn" id="nextPageBtn">
+                <button class="next-page-btn" id="next-page-btn">
                     <i class="fas fa-arrow-right"></i> 下一页
                 </button>
             </div>
@@ -68,7 +67,7 @@
             </div>
         </section>
 
-        <section class="voice-settings">
+        <section class=" container voice-settings">
             <p><i class="fas fa-volume-up"></i> 语音设置</p>
             <div class="voice-controls">
                 <div class="rate-control">

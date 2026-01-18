@@ -13,11 +13,10 @@
 
 
     --light-pink: #ff99c8;
-    --sky-blue: #d6eaff;
     --pale-yellow:   /* ✅ */
     --border-color: #bcdffc; 
     --text-orange: #a65d3b;
-        --primary-purple: #B647E7; /* ✅ */
+    --primary-purple: #B647E7; /* ✅ */
 }
 
 * {
@@ -34,6 +33,14 @@ body {
     text-align: center;
 }
 
+.container {
+    padding: 20px;
+    margin: 40px 30px 50px 30px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 3px solid var(--light-blue);
+}
 
 /* typograpghy */
 
@@ -61,7 +68,6 @@ button {
     align-items: center;
     gap: 20px;
     padding: 20px 50px;
-    background-color: var(--light-blue);
 }
 
 .profile-avatar {
@@ -93,8 +99,6 @@ button {
 /* 3. mode selector */
 .mode-selector {
     gap: 16px;
-    padding: 20px 50px;
-    background-color: var(--light-yellow);
 }
 
 .mode-buttons {
@@ -103,40 +107,51 @@ button {
     gap: 30px;
     flex-wrap: wrap;
     margin-top: 20px;
-    
 }
 
-.mode-btn {
-    font-size: 1rem;
-    font-weight: 500;
-    border-radius: 16px;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+.mode-buttons input[type="radio"] {
+    display: none;
 }
 
-.mode-btn:hover, .mode-btn:focus {
+.mode-buttons label {
+    padding: 12px 22px;
+    border-radius: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 14px #0000001F;
+}
+
+.mode-label:hover, .mode-label:focus {
     transform: scale(1.05);     
 }
 
-.listenModeBtn {
+.mode-buttons input[type="radio"]:checked + label {
+    outline: 3px solid white;
+}
+
+.listen-mode-label {
     background: var(--primary-green);
 }
 
-.learnModeBtn {
+.learn-mode-label {
     background: var(--primary-blue);
 }
 
-.readModeBtn {
+.read-mode-label {
     background: var(--primary-orange);
 }
 
-.showModeBtn {
+.show-mode-label {
     background: var(--primary-pink);
 }
 
+.translate-checkbox {
+    display: none; 
+}
 
 /* 3. main image */
 .main-img {
-    margin: 30px 20px 10px 20px;
+    margin: 30px 30px 10px 30px;
 }
 
 .page-image {
@@ -156,11 +171,11 @@ button {
     margin-right: auto;
 }
 
-.prevPageBtn {
+.prev-page-btn {
     background: var(--light-orange);
 }
 
-.nextPageBtn {
+.next-page-btn {
     background: var(--primary-red);
 }
 
@@ -174,14 +189,6 @@ button {
 
 
 /* 5. voice-settings */
-.voice-settings {
-    margin: 40px 30px 50px 30px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    border: 3px solid var(--light-blue);
-}
 
 .voice-controls {
     margin-top: 10px;

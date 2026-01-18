@@ -1,5 +1,5 @@
 // 教材页面数据 - 使用百分比坐标而不是像素坐标
-const pages = [
+export const pages = [
     { 
         image: "page1.png", 
         sentences: [
