@@ -1,55 +1,61 @@
-// 教材页面数据 - 使用百分比坐标而不是像素坐标
-export const pages = [
+export const pagesTexts = [
     { 
         image: "page1.png", 
         sentences: [
-            { id: 1, text: "Unit 1 We're friends", left: 20, top: 3, w: 60, h: 12 },
-            { id: 2, text: "We're good friends!", left: 41, top: 44, w: 25, h: 6 },
+            { id: 1, text: "Unit 1 We're friends", left: 20, top: 6, w: 50, h: 8 },
+            { id: 2, text: "We're good friends!", left: 41, top: 44, w: 30, h: 5 },
             { id: 3, text: "The more we get together,\nTogether, together,\nThe more we get together,\nThe happier we'll be.", left: 47, top: 78, w: 38, h: 14 }
         ]
     },
     { 
         image: "page2.png", 
         sentences: [
-            { id: 4, text: "Thank you for the carrots", left: 10, top: 13, w: 45, h: 4 },
-            { id: 5, text: "There are so many carrots. I want to share them with my friends.", left: 15, top: 18, w: 32, h: 8 },
-            { id: 6, text: "Thank you. Let's have a fruit party!", left: 59, top: 53, w: 31, h: 7 },
-            { id: 7, text: "The fruit is so sweet. Like our friendship!", left: 16, top: 73, w: 48, h: 8 },
-            { id: 18, text: "Cartoon time", left: 8, top: 6, w: 35, h: 6 },
-            { id: 19, text: "There are some carrots.", left: 56, top: 17, w: 24, h: 6 },
-            { id: 20, text: "They're from my friend Ruby.", left: 69, top: 30, w: 27, h: 6 }
+            { id: 4, text: "Cartoon time", left: 8, top: 6, w: 35, h: 6 },
+            { id: 5, text: "Thank you for the carrots", left: 10, top: 13, w: 45, h: 4 },
+            { id: 6, text: "There are so many carrots. I want to share them with my friends.", left: 15, top: 18, w: 32, h: 8 },
+            { id: 7, text: "There are some carrots.", left: 56, top: 17, w: 20, h: 6 },
+            { id: 8, text: "They're from my friend Ruby.", left: 69, top: 30, w: 22, h: 6 },
+            { id: 9, text: "Thank you for the carrots, Ruby. We want to share our fuits with you.", left: 12, top: 63, w: 37, h: 8 },
+            { id: 10, text: "Thank you. Let's have a fruit party!", left: 59, top: 53, w: 26, h: 7 },
+            { id: 11, text: "Great!", left: 80, top: 63, w: 10, h: 5 },
+            { id: 12, text: "The fruit is so sweet. ", left: 16, top: 73, w: 18, h: 6 },
+            { id: 13, text: "Like our friendship!", left: 35, top: 76.5, w: 30, h: 4 },
+            { id: 14, text: "What do Ruby and her friends do for each other?", left: 59, top: 84, w: 30, h: 8 },
+            
+            
+            
         ]
     },
     { 
         image: "page3.png", 
         sentences: [
-            { id: 8, text: "The lion and the mouse", left: 10, top: 13, w: 45, h: 4 },
-            { id: 9, text: "There are many animals in the forest. The lion is big and strong. The mouse is small and thin.", left: 14, top: 17, w: 65, h: 6 },
-            { id: 10, text: "The mouse is on the lion's back. The lion is angry.", left: 14, top: 45, w: 65, h: 4 },
-            { id: 11, text: "Please don't eat me. I can help you one day.", left: 16, top: 72, w: 30, h: 7 },
-            { id: 12, text: "How can you help me? You're so weak!", left: 64, top: 77, w: 25, h: 8 },
-            { id: 21, text: "Story time", left: 9, top: 6, w: 30, h: 6 },
-            { id: 22, text: "There are many animals in the forest.", left: 14, top: 17, w: 40, h: 4 },
-            { id: 23, text: "Please!", left: 27, top: 84, w: 13, h: 4 },
-            { id: 24, text: "Ha ha! How can you help me?", left: 64, top: 77, w: 22, h: 5 }
+            { id: 15, text: "Story time", left: 9, top: 6, w: 30, h: 6 },
+            { id: 16, text: "The lion and the mouse", left: 10, top: 13, w: 45, h: 4 },
+            { id: 17, text: "There are many animals in the forest. The lion is big and strong. The mouse is small and thin.", left: 14, top: 17, w: 65, h: 6 },
+            { id: 18, text: "The mouse is on the lion's back. The lion is angry.", left: 14, top: 45, w: 65, h: 4 },
+            { id: 19, text: "Please don't eat me. I can help you one day.", left: 16, top: 72, w: 30, h: 7 },
+            { id: 20, text: "Ha ha! How can you help me? You're so weak!", left: 64, top: 77, w: 23, h: 8.5 },
+            { id: 21, text: "Please!", left: 27, top: 84, w: 13, h: 4 },
+            { id: 22, text: "Ok. Go away!", left: 62, top: 88, w: 19, h: 4 },
+            
+            
         ]
     },
     { 
         image: "page4.png", 
         sentences: [
-            { id: 13, text: "The lion is in the net. He is sad.", left: 16, top: 9, w: 50, h: 4 },
-            { id: 14, text: "Let me help you.", left: 56, top: 21, w: 20, h: 4 },
-            { id: 15, text: "There is a big hole in the net.", left: 16, top: 36, w: 45, h: 4 },
-            { id: 16, text: "Thank you! You're so kind!", left: 68, top: 52, w: 25, h: 6 },
-            { id: 17, text: "The lion and the mouse become good friends.", left: 16, top: 64, w: 56, h: 4 },
-            { id: 25, text: "Help!", left: 25, top: 18, w: 12, h: 4 },
-            { id: 26, text: "OK. Go away!", left: 60, top: 89, w: 18, h: 4 },
-            { id: 27, text: "What do the lion and the mouse do for each other?", left: 16, top: 89, w: 75, h: 4 }
+            { id: 23, text: "The lion is in the net. He is sad.", left: 16, top: 9, w: 43, h: 4 },
+            { id: 24, text: "Help!", left: 28, top: 14.5, w: 11, h: 4 },
+            { id: 25, text: "Let me help you.", left: 55, top: 20, w: 20, h: 4 },
+            { id: 26, text: "There is a big hole in the net.", left: 16, top: 36, w: 45, h: 3.8 },
+            { id: 27, text: "Thank you! You're so kind!", left: 68, top: 52, w: 23, h: 6 },
+            { id: 28, text: "The lion and the mouse become good friends.", left: 16, top: 63.5, w: 57, h: 3 },
+            { id: 29, text: "What do the lion and the mouse do for each other?", left: 16, top: 89, w: 68, h: 3 }
         ]
     }
 ];
 
-// 句子翻译对照表
+
 const translations = {
     1: "第一单元 我们是朋友",
     2: "我们是好朋友！",
@@ -80,7 +86,7 @@ const translations = {
     27: "狮子和老鼠为彼此做了什么？"
 };
 
-// 基于页面内容的练习题数据（多样化的题型）
+
 const practiceQuestions = {
     page1: [
         {

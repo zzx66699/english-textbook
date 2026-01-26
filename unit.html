@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <title>Unit 1 We're friends - 英语互动学习乐园</title>
+    <title>Unit 1 We're friends</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="unit1.css">
+    <link rel="stylesheet" href="unit.css">
 
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -27,13 +27,9 @@
     <main>
         <section>
             <div class="container mode-selector" id="mode-selector">
-                <p class="mode-text">点击"听、译、读、秀"四个彩色按钮开始有趣的英语学习吧！</p>
                 <div class="mode-buttons">
                     <input type="radio" id="listen-mode-btn" name="mode" value="listen-mode">
                     <label for="listen-mode-btn" class="mode-label listen-mode-label"><i class="fas fa-pencil-alt"></i> 听 </label>
-
-                    <input type="radio" id="learn-mode-btn" name="mode" value="learn-mode">
-                    <label for="learn-mode-btn" class="mode-label learn-mode-label"><i class="fas fa-book-open"></i> 译</label>
 
                     <input type="radio" id="read-mode-btn" name="mode" value="read-mode">
                     <label for="read-mode-btn" class="mode-label read-mode-label"><i class="fas fa-volume-up"></i> 读</label>    
@@ -49,8 +45,9 @@
         </section>
 
         <section>
-            <div class="main-img" id="main-img">
-                <img id="pageImage" class="page-image" src="page1.png" alt="textbook page">
+            <div class="img-container" id="img-container">
+                <img id="page-image" class="page-image" src="page1.png" alt="textbook page">
+                <div id="hotmap-layer"></div>
             </div>
         </section>
         
@@ -60,14 +57,15 @@
                     <i class="fas fa-arrow-left"></i> 上一页
                 </button>
                 
+                <div class="page-indicator">
+                    <p><i class="fas fa-book"></i>  <span id="currentPage">1</span> / 4 </p>
+                </div>
+
                 <button class="next-page-btn" id="next-page-btn">
                     <i class="fas fa-arrow-right"></i> 下一页
                 </button>
             </div>
             
-            <div class="page-indicator">
-                <p><i class="fas fa-book"></i> 第 <span id="currentPage">1</span> 页 / 共 4 页</p>
-            </div>
         </section>
 
         <section class=" container voice-settings">
@@ -135,6 +133,6 @@
             <span>更多资源：小红书账号shlshyy</span>
         </p>
     </footer>
-    <script src="unit1.js" type="module"></script>
+    <script src="unit.js" type="module"></script>
 </body>
 </html>
