@@ -2,89 +2,123 @@ export const pagesTexts = [
     { 
         image: "page1.png", 
         sentences: [
-            { id: 1, text: "Unit 1 We're friends", left: 20, top: 6, w: 50, h: 8 },
-            { id: 2, text: "We're good friends!", left: 41, top: 44, w: 30, h: 5 },
-            { id: 3, text: "The more we get together,\nTogether, together,\nThe more we get together,\nThe happier we'll be.", left: 47, top: 78, w: 38, h: 14 }
+            { id: 1, text: "Unit 1 We're friends", translation: "第一单元 我们是朋友", left: 20, top: 6, w: 50, h: 8 },
+            { id: 2, text: "We're good friends!", translation: "我们是好朋友！", left: 41, top: 44, w: 30, h: 5 },
+            { 
+                id: 3, 
+                text: "The more we get together,\nTogether, together,\nThe more we get together,\nThe happier we'll be.", 
+                translation: "我们在一起越多，\n在一起，在一起，\n我们在一起越多，\n我们就会越快乐。", 
+                left: 47, top: 78, w: 38, h: 14 
+            }
         ]
     },
     { 
         image: "page2.png", 
         sentences: [
-            { id: 4, text: "Cartoon time", left: 8, top: 6, w: 35, h: 6 },
-            { id: 5, text: "Thank you for the carrots", left: 10, top: 13, w: 45, h: 4 },
-            { id: 6, text: "There are so many carrots. I want to share them with my friends.", left: 15, top: 18, w: 32, h: 8 },
-            { id: 7, text: "There are some carrots.", left: 56, top: 17, w: 20, h: 6 },
-            { id: 8, text: "They're from my friend Ruby.", left: 69, top: 30, w: 22, h: 6 },
-            { id: 9, text: "Thank you for the carrots, Ruby. We want to share our fuits with you.", left: 12, top: 63, w: 37, h: 8 },
-            { id: 10, text: "Thank you. Let's have a fruit party!", left: 59, top: 53, w: 26, h: 7 },
-            { id: 11, text: "Great!", left: 80, top: 63, w: 10, h: 5 },
-            { id: 12, text: "The fruit is so sweet. ", left: 16, top: 73, w: 18, h: 6 },
-            { id: 13, text: "Like our friendship!", left: 35, top: 76.5, w: 30, h: 4 },
-            { id: 14, text: "What do Ruby and her friends do for each other?", left: 59, top: 84, w: 30, h: 8 },
-            
-            
-            
+            { id: 4, text: "Cartoon time", translation: "动画时间", left: 8, top: 6, w: 35, h: 6 },
+            { id: 5, text: "Thank you for the carrots", translation: "谢谢你的胡萝卜", left: 10, top: 13, w: 45, h: 4 },
+            { 
+                id: 6, 
+                text: "There are so many carrots. I want to share them with my friends.", 
+                translation: "这里有这么多胡萝卜。我想和我的朋友们一起分享。", 
+                left: 15, top: 18, w: 32, h: 8 
+            },
+            { id: 7, text: "There are some carrots.", translation: "这里有一些胡萝卜。", left: 56, top: 17, w: 20, h: 6 },
+            { id: 8, text: "They're from my friend Ruby.", translation: "它们来自我的朋友 Ruby。", left: 69, top: 30, w: 22, h: 6 },
+            { 
+                id: 9, 
+                text: "Thank you for the carrots, Ruby. We want to share our fuits with you.", 
+                translation: "谢谢你的胡萝卜，Ruby。我们想和你分享我们的水果。", 
+                left: 12, top: 63, w: 37, h: 8 
+            },
+            { 
+                id: 10, 
+                text: "Thank you. Let's have a fruit party!", 
+                translation: "谢谢你。我们来开一个水果派对吧！", 
+                left: 59, top: 53, w: 26, h: 7 
+            },
+            { id: 11, text: "Great!", translation: "太棒了！", left: 80, top: 63, w: 10, h: 5 },
+            { id: 12, text: "The fruit is so sweet. ", translation: "水果真甜。", left: 16, top: 73, w: 18, h: 6 },
+            { id: 13, text: "Like our friendship!", translation: "就像我们的友谊一样！", left: 35, top: 76.5, w: 30, h: 4 },
+            { 
+                id: 14, 
+                text: "What do Ruby and her friends do for each other?", 
+                translation: "Ruby 和她的朋友们为彼此做了什么？", 
+                left: 59, top: 84, w: 30, h: 8 
+            }
         ]
     },
     { 
         image: "page3.png", 
         sentences: [
-            { id: 15, text: "Story time", left: 9, top: 6, w: 30, h: 6 },
-            { id: 16, text: "The lion and the mouse", left: 10, top: 13, w: 45, h: 4 },
-            { id: 17, text: "There are many animals in the forest. The lion is big and strong. The mouse is small and thin.", left: 14, top: 17, w: 65, h: 6 },
-            { id: 18, text: "The mouse is on the lion's back. The lion is angry.", left: 14, top: 45, w: 65, h: 4 },
-            { id: 19, text: "Please don't eat me. I can help you one day.", left: 16, top: 72, w: 30, h: 7 },
-            { id: 20, text: "Ha ha! How can you help me? You're so weak!", left: 64, top: 77, w: 23, h: 8.5 },
-            { id: 21, text: "Please!", left: 27, top: 84, w: 13, h: 4 },
-            { id: 22, text: "Ok. Go away!", left: 62, top: 88, w: 19, h: 4 },
-            
-            
+            { id: 15, text: "Story time", translation: "故事时间", left: 9, top: 6, w: 30, h: 6 },
+            { id: 16, text: "The lion and the mouse", translation: "狮子和老鼠", left: 10, top: 13, w: 45, h: 4 },
+            { 
+                id: 17, 
+                text: "There are many animals in the forest. The lion is big and strong. The mouse is small and thin.", 
+                translation: "森林里有很多动物。狮子又大又强壮。老鼠又小又瘦。", 
+                left: 14, top: 17, w: 65, h: 6 
+            },
+            { 
+                id: 18, 
+                text: "The mouse is on the lion's back. The lion is angry.", 
+                translation: "老鼠在狮子的背上。狮子很生气。", 
+                left: 14, top: 45, w: 65, h: 4 
+            },
+            { 
+                id: 19, 
+                text: "Please don't eat me. I can help you one day.", 
+                translation: "请不要吃我。有一天我可以帮助你。", 
+                left: 16, top: 72, w: 30, h: 7 
+            },
+            { 
+                id: 20, 
+                text: "Ha ha! How can you help me? You're so weak!", 
+                translation: "哈哈！你怎么能帮我？你这么弱！", 
+                left: 64, top: 77, w: 23, h: 8.5 
+            },
+            { id: 21, text: "Please!", translation: "求你了！", left: 27, top: 84, w: 13, h: 4 },
+            { id: 22, text: "Ok. Go away!", translation: "好吧。走开！", left: 62, top: 88, w: 19, h: 4 }
         ]
     },
     { 
         image: "page4.png", 
         sentences: [
-            { id: 23, text: "The lion is in the net. He is sad.", left: 16, top: 9, w: 43, h: 4 },
-            { id: 24, text: "Help!", left: 28, top: 14.5, w: 11, h: 4 },
-            { id: 25, text: "Let me help you.", left: 55, top: 20, w: 20, h: 4 },
-            { id: 26, text: "There is a big hole in the net.", left: 16, top: 36, w: 45, h: 3.8 },
-            { id: 27, text: "Thank you! You're so kind!", left: 68, top: 52, w: 23, h: 6 },
-            { id: 28, text: "The lion and the mouse become good friends.", left: 16, top: 63.5, w: 57, h: 3 },
-            { id: 29, text: "What do the lion and the mouse do for each other?", left: 16, top: 89, w: 68, h: 3 }
+            { 
+                id: 23, 
+                text: "The lion is in the net. He is sad.", 
+                translation: "狮子被困在网里。他很伤心。", 
+                left: 16, top: 9, w: 43, h: 4 
+            },
+            { id: 24, text: "Help!", translation: "救命！", left: 28, top: 14.5, w: 11, h: 4 },
+            { id: 25, text: "Let me help you.", translation: "让我来帮你。", left: 55, top: 20, w: 20, h: 4 },
+            { 
+                id: 26, 
+                text: "There is a big hole in the net.", 
+                translation: "网里有一个大洞。", 
+                left: 16, top: 36, w: 45, h: 3.8 
+            },
+            { 
+                id: 27, 
+                text: "Thank you! You're so kind!", 
+                translation: "谢谢你！你真善良！", 
+                left: 68, top: 52, w: 23, h: 6 
+            },
+            { 
+                id: 28, 
+                text: "The lion and the mouse become good friends.", 
+                translation: "狮子和老鼠成了好朋友。", 
+                left: 16, top: 63.5, w: 57, h: 3 
+            },
+            { 
+                id: 29, 
+                text: "What do the lion and the mouse do for each other?", 
+                translation: "狮子和老鼠为彼此做了什么？", 
+                left: 16, top: 89, w: 68, h: 3 
+            }
         ]
     }
 ];
-
-
-const translations = {
-    1: "第一单元 我们是朋友",
-    2: "我们是好朋友！",
-    3: "我们越是相聚在一起，\n在一起，在一起，\n我们越是相聚在一起，\n我们就会越快乐。",
-    4: "感谢你的胡萝卜",
-    5: "有这么多胡萝卜。我想和我的朋友们分享。",
-    6: "谢谢。让我们开个水果派对吧！",
-    7: "水果真甜。就像我们的友谊！",
-    8: "狮子和老鼠",
-    9: "森林里有许多动物。狮子又大又强壮。老鼠又小又瘦。",
-    10: "老鼠在狮子的背上。狮子很生气。",
-    11: "请不要吃我。有一天我可以帮助你。",
-    12: "你怎么能帮我？你太弱了！",
-    13: "狮子在网里。他很伤心。",
-    14: "让我来帮你。",
-    15: "网上有一个大洞。",
-    16: "谢谢！你真是太好了！",
-    17: "狮子和老鼠成为了好朋友。",
-    18: "卡通时间",
-    19: "有一些胡萝卜。",
-    20: "它们来自我的朋友鲁比。",
-    21: "故事时间",
-    22: "森林里有许多动物。",
-    23: "拜托！",
-    24: "哈哈！你怎么能帮我？",
-    25: "救命！",
-    26: "好的。走开！",
-    27: "狮子和老鼠为彼此做了什么？"
-};
 
 
 const practiceQuestions = {

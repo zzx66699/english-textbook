@@ -11,43 +11,59 @@
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+
     <!-- firework effect library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
     <header>
+
         <div class="header-box">
             <img class="profile-avatar" src="images/avatar.jpg" alt="an avatar of teacher shi">
             <p class="profile-name">石老师英语</p>
             <i class="fa-solid fa-bars"></i>
         </div>
+
+        <nav>
+            <ul>
+                <li><a href="#">年级选择</a></li>
+                <li><a href="#">错题积累</a></li>
+                <li><a href="#">错题统计</a></li>
+            <ul>
+        </nav>
+
     </header>
 
     <main>
-        <section>
-            <div class="container mode-selector" id="mode-selector">
-                <div class="mode-buttons">
-                    <input type="radio" id="listen-mode-btn" name="mode" value="listen-mode">
-                    <label for="listen-mode-btn" class="mode-label listen-mode-label"><i class="fas fa-pencil-alt"></i> 听 </label>
-
-                    <input type="radio" id="read-mode-btn" name="mode" value="read-mode">
-                    <label for="read-mode-btn" class="mode-label read-mode-label"><i class="fas fa-volume-up"></i> 读</label>    
-
-                    <input type="radio" id="show-mode-btn" name="mode" value="show-mode">
-                    <label for="show-mode-btn" class="mode-label show-mode-label"><i class="fas fa-chart-line"></i> 秀</label>    
-                </div>
-                <div class="translate-checkbox" id="translate-checkbox">
-                    <input type="checkbox" id="need-translate">
-                    <label for="need-translate">翻译</label>
-                </div>
+        <section id="settings">
+            
+            <div class="translate-checkbox" id="translate-checkbox">
+                <input type="checkbox" id="need-translate">
+                <label for="need-translate">翻译</label>
             </div>
+
+            <div class="voice-controls">
+                <div class="rate-control">
+                    <p>语速:</p>
+                    <input type="range" id="rate-select" min="0.5" max="2" step="0.1" value="1">
+                    <span class="rate-value" id="rate-value">1.0</span>
+                </div>
+                
+                <select id="voice-select" class="voice-select">
+                    <option value="">选择语音</option>
+                </select>
+            </div>
+
         </section>
 
         <section>
             <div class="img-container" id="img-container">
                 <img id="page-image" class="page-image" src="page1.png" alt="textbook page">
                 <div id="hotmap-layer"></div>
+                <div id="tranlation-layer"></div>
             </div>
         </section>
         
@@ -58,7 +74,7 @@
                 </button>
                 
                 <div class="page-indicator">
-                    <p><i class="fas fa-book"></i>  <span id="currentPage">1</span> / 4 </p>
+                    <p> <span id="currentPage">1</span> / 4 </p>
                 </div>
 
                 <button class="next-page-btn" id="next-page-btn">
@@ -68,27 +84,7 @@
             
         </section>
 
-        <section class=" container voice-settings">
-            <p><i class="fas fa-volume-up"></i> 语音设置</p>
-            <div class="voice-controls">
-                <div class="rate-control">
-                    <p>语速:</p>
-                    <input type="range" id="rateSlider" min="0.5" max="2" step="0.1" value="1">
-                    <span class="rate-value" id="rateValue">1.0</span>
-                </div>
-                
-                <div class="pitch-control">
-                    <p>音调:</p>
-                    <input type="range" id="pitchSlider" min="0.5" max="2" step="0.1" value="1">
-                    <span class="pitch-value" id="pitchValue">1.0</span>
-                </div>
-                
-                <select id="voiceSelect" class="voice-select">
-                    <option value="">选择语音</option>
-                </select>
-            </div>
-        </section>
-        
+
         <!-- <section class="practice-section" id="practiceSection">
             <h3><i class="fas fa-pencil-alt"></i> 练一练 - 巩固所学知识</h3>
             <div class="practice-container">
