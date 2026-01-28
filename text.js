@@ -14,6 +14,7 @@ const p = new URLSearchParams(location.search);
 const grade = p.get("grade");
 const semester = p.get("semester");
 const unit = p.get("unit");
+const basePath = `./images/grade${grade}/semester${semester}/unit${unit || 1}/`
 
 
 // ---------- Initialization ----------
@@ -46,11 +47,7 @@ document.getElementById("link-dictation").href =
 `./dictation.html?grade=${grade}&semester=${semester}&unit=${unit || 1}`;
 
 
-// 3. Load the text image
-textImg.src = `./images/grade${grade}/semester${semester}/unit${unit || 1}/page1.png`
-
-
-// 4. Load voice from Web Speech API
+// 3. Load voice from Web Speech API
 function loadVoices() {
     const voices = synth.getVoices();
     englishVoices = voices.filter(v => v.lang.startsWith("en"));
@@ -76,7 +73,80 @@ speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
 
 
-// 5. Create hotmap
+// 4. Detect max page for the unit
+let maxPage = 1
+
+function detectMaxPage(){
+    let testPage = 1
+
+    function testNext(){
+        const img = new Image()
+        img.src = `${basePath}page${testPage}.png` 
+        
+        img.onload = () => {
+            maxPage = testPage
+            testPage++
+            testNext()
+        }
+
+        img.onerror = () => { 
+            pageRender()
+            pageNumberRender() 
+            renderHotMap(count); }
+    }
+
+    testNext()
+}
+
+detectMaxPage()
+
+
+// 5. Load the text image
+let count = 1
+
+function pageRender() {
+    textImg.src = `${basePath}page${count}.png` 
+    
+}
+
+
+// 6. Create the page selector
+document.addEventListener("click", e =>
+    {
+        if (e.target.id === "next-page-btn"){
+            pageIncrement()
+        } else if (e.target.id === "prev-page-btn"){
+            pageDecrement()
+        }
+    }
+) 
+
+function pageIncrement() {
+    if (count < maxPage){
+        count ++
+        pageRender()
+        pageNumberRender()
+        renderHotMap(count)
+    }
+
+}
+
+function pageDecrement() {
+    if (count > 1){
+        count --
+        pageRender()
+        pageNumberRender()
+        renderHotMap(count)
+    }
+}
+
+function pageNumberRender() {
+    document.getElementById("page-indicator").innerHTML = `
+        <p> <span id="${count}">${count}</span> / ${maxPage} </p>`
+}
+
+
+// 7. Create hotmap
 function renderHotMap(pageNumber){
     const hotmapLayer = document.getElementById("hotmap-layer");
     hotmapLayer.innerHTML = ""; 
@@ -104,6 +174,15 @@ function renderHotMap(pageNumber){
 }
 
 renderHotMap(1)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -161,43 +240,3 @@ function renderTranslation(text, left, top, h){
 
 
 
-// ---------- page selector ----------
-let count = 1; 
-
-document.addEventListener("click", e =>
-    {
-        if (e.target.id === "next-page-btn"){
-            pageIncrement()
-        } else if (e.target.id === "prev-page-btn"){
-            pageDecrement()
-        }
-    }
-) 
-
-function pageIncrement() {
-    if (count < 4){
-        count ++
-        pageRender()
-        pageNumberRender()
-        renderHotMap(count)
-    }
-
-}
-
-function pageDecrement() {
-    if (count > 1){
-        count --
-        pageRender()
-        pageNumberRender()
-        renderHotMap(count)
-    }
-}
-
-function pageRender() {
-    textImg.src = `./images/grade${grade}/semester${semester}/unit${unit || 1}/page${count}.png` 
-    
-}
-
-function pageNumberRender() {
-    document.getElementById("currentPage").innerHTML = count
-}
