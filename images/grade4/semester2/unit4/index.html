@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Unit 4 电脑专用版</title>
+    <style>
+        /* --- 基础样式 --- */
+        :root { --pink: #ffdae0; --blue: #c0e8ff; --green: #d1f4e0; --yellow: #fff2cc; --text: #5d4037; --soft-white: #f5f5f5; --nav-bg: #ffffff; }
+        body { font-family: "Comic Sans MS", "幼圆", sans-serif; background: var(--soft-white); margin: 0; display: flex; flex-direction: column; align-items: center; color: var(--text); padding-bottom: 60px; -webkit-tap-highlight-color: transparent; user-select: none; }
+        
+        .top-bar { width: 96vw; max-width: 800px; background: var(--nav-bg); padding: 15px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; align-items: center; border: 4px solid var(--green); border-top: none; border-radius: 0 0 20px 20px; position: sticky; top: 0; z-index: 200; box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .nav-btn { background: var(--pink); border: 3px solid #fff; color: #d84315; padding: 8px 24px; border-radius: 25px; cursor: pointer; font-size: 16px; font-weight: 900; box-shadow: 0 4px 0 #ffab91; transition: all 0.1s; }
+        .nav-btn:active { transform: translateY(4px); box-shadow: none; }
+        .nav-btn:disabled { background: #eeeeee; box-shadow: none; color: #ccc; cursor: not-allowed; border-color:#eee;}
+        .config-item { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: bold; }
+        .icon-emoji { font-size: 28px; line-height: 1; }
+        select { border: 3px solid var(--blue); border-radius: 12px; padding: 8px 5px; font-size: 16px; font-weight: bold; color: #555; max-width: 140px; outline: none; background: #fff; }
+        .page-badge { background: var(--yellow); padding: 8px 20px; border-radius: 20px; color: #f9a825; font-weight: 900; font-size: 18px; border: 3px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        input[type=range] { transform: scale(1.2); margin: 0 5px; accent-color: var(--pink); cursor: pointer; }
+        .book-container { position: relative; width: 96vw; max-width: 800px; aspect-ratio: 780 / 1100; margin: 20px 0; background: #ffffff; border: 8px solid var(--green); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .page-img { width: 100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: fill; }
+        .hotspot { position: absolute; cursor: pointer; z-index: 10; border-radius: 8px; }
+        .hotspot:active { background: rgba(255, 255, 0, 0.3); } 
+        
+        /* 翻译气泡 */
+        .trans-popup { 
+            position: absolute; 
+            background: rgba(255, 255, 255, 0.95); 
+            border: 3px solid var(--pink); 
+            border-radius: 15px; 
+            padding: 10px 15px; 
+            color: #d84315; 
+            font-weight: bold; 
+            font-size: 18px; 
+            pointer-events: none; 
+            z-index: 100; 
+            transform: translateX(-50%); 
+            display: none; 
+            text-align: center; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            min-width: 120px; 
+            width: max-content;
+            max-width: 90%;
+            white-space: normal;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <button class="nav-btn prevBtn" onclick="changePage(-1)">上一页</button>
+        <div class="page-badge pageIndicator">1 / 6</div>
+        <button class="nav-btn nextBtn" onclick="changePage(1)">下一页</button>
+        
+        <div style="width: 1px; height: 30px; background: #eee; margin: 0 5px;"></div>
+        
+        <div class="config-item">
+            <span style="font-size:20px;">译</span>
+            <input type="checkbox" id="transToggle" checked style="width:22px;height:22px;accent-color:var(--green); cursor:pointer;">
+        </div>
+        <div class="config-item">
+            <span class="icon-emoji">🐢</span>
+            <input type="range" id="rate" min="0.5" max="1.5" step="0.1" value="0.9" style="width:80px;">
+            <span class="icon-emoji">🐰</span>
+        </div>
+        <div class="config-item">
+            <select id="voiceSelect"></select>
+        </div>
+    </div>
+
+    <div class="book-container" id="bookBox">
+        <img id="bgImg" class="page-img" src="page1.png" alt="课文图片">
+        <div id="transBubble" class="trans-popup"></div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:20px; margin-bottom: 30px;">
+        <button class="nav-btn prevBtn" onclick="changePage(-1)">上一页</button>
+        <div class="page-badge pageIndicator">1 / 6</div>
+        <button class="nav-btn nextBtn" onclick="changePage(1)">下一页</button>
+    </div>
+
+    <script>
+        // --- Unit 4 数据 (Caring about others) ---
+        // 注意：图片格式已确认为 .png
+        const unitData = [
+            { 
+                img: "page1.png", 
+                hotspots: [ 
+                    { en: "Unit 4 Caring about others", zh: "第四单元 关爱他人", t: 4, l: 21, w: 60, h: 10 }, 
+                    { en: "hungry", zh: "饥饿的", t: 39, l: 67, w: 15, h: 4 }, 
+                    { en: "thirsty", zh: "口渴的", t: 61, l: 58, w: 15, h: 4 }, 
+                    { en: "What's the matter, my friend?", zh: "你怎么了，我的朋友？", t: 78, l: 24, w: 45, h: 3 }, 
+                    { en: "I'm ill. I want to take a seat.", zh: "我生病了。我想坐一下。", t: 81, l: 24, w: 45, h: 3 }, 
+                    { en: "I'm hungry. I want to eat.", zh: "我饿了。我想吃东西。", t: 84, l: 24, w: 45, h: 3 }, 
+                    { en: "I'm thirsty. I want to drink.", zh: "我渴了。我想喝水。", t: 87, l: 24, w: 45, h: 3 }, 
+                    { en: "I'm tired. I need a rest, I think.", zh: "我累了。我想我需要休息。", t: 90, l: 24, w: 45, h: 3 } 
+                ] 
+            },
+            { 
+                img: "page2.png", 
+                hotspots: [ 
+                    { en: "Big question. How do you take care of others?", zh: "核心问题：你如何照顾他人？", t: 9, l: 62, w: 30, h: 12 }, 
+                    { en: "Learning objectives", zh: "学习目标", t: 24, l: 65, w: 30, h: 6 }, 
+                    { en: "To tell others how I feel", zh: "告诉别人我的感受", t: 33, l: 65, w: 30, h: 4 }, 
+                    { en: "To ask others how they feel", zh: "询问别人的感受", t: 39, l: 65, w: 30, h: 4 }, 
+                    { en: "To talk about how I can take care of others", zh: "谈论我如何照顾他人", t: 45, l: 65, w: 30, h: 6 }, 
+                    { en: "ill", zh: "生病的", t: 28, l: 32, w: 10, h: 3 }, 
+                    { en: "tired", zh: "劳累的", t: 87, l: 12, w: 10, h: 3 }, 
+                    { en: "1 Look at the picture. What can you see?", zh: "看图片。你能看到什么？", t: 65, l: 64, w: 30, h: 6 }, 
+                    { en: "2 Listen to the rhyme and chant along.", zh: "听歌谣并跟着吟唱。", t: 71, l: 64, w: 30, h: 6 }, 
+                    { en: "3 Think about answers to the big question.", zh: "思考核心问题的答案。", t: 78, l: 64, w: 30, h: 6 } 
+                ] 
+            },
+            { 
+                img: "page3.png", 
+                hotspots: [ 
+                    { en: "Cartoon time", zh: "漫画时间", t: 8, l: 16, w: 30, h: 5 }, 
+                    { en: "I'm hot and thirsty", zh: "我又热又渴", t: 14, l: 12, w: 45, h: 4 }, 
+                    { en: "1 I'm hot and thirsty, Bobby.", zh: "我好热好渴，波比。", t: 21, l: 14, w: 25, h: 8 }, 
+                    { en: "Here's some water for you, Tom.", zh: "给你点水，汤姆。", t: 34, l: 9, w: 43, h: 4 }, 
+                    { en: "2 I'm hungry, Bobby.", zh: "我饿了，波比。", t: 21, l: 55, w: 25, h: 8 }, 
+                    { en: "Have a cake, Tom.", zh: "吃块蛋糕吧，汤姆。", t: 34, l: 66, w: 25, h: 8 }, 
+                    { en: "3 Tom, please be quiet. Let's have a rest.", zh: "汤姆，请安静。让我们休息一下。", t: 44, l: 17, w: 33, h: 8 }, 
+                    { en: "No, I want to play!", zh: "不，我想玩！", t: 61, l: 9, w: 30, h: 4 }, 
+                    { en: "4 What's the matter, Bobby?", zh: "你怎么了，波比？", t: 44, l: 63, w: 33, h: 8 }, 
+                    { en: "I'm tired ...", zh: "我累了……", t: 62, l: 67, w: 20, h: 4 }, 
+                    { en: "5 Can I come tomorrow?", zh: "我明天还能来吗？", t: 79, l: 17, w: 35, h: 4 }, 
+                    { en: "How does Bobby take care of Tom?", zh: "波比是如何照顾汤姆的？", t: 89, l: 15, w: 55, h: 4 } 
+                ] 
+            },
+            { 
+                img: "page4.png", 
+                hotspots: [ 
+                    { en: "A Read and match", zh: "读一读，连一连", t: 11, l: 10, w: 30, h: 3 }, 
+                    { en: "hot and thirsty", zh: "又热又渴", t: 16, l: 34, w: 25, h: 3 }, 
+                    { en: "tired", zh: "累了", t: 21, l: 34, w: 25, h: 3 }, 
+                    { en: "hungry", zh: "饿了", t: 26, l: 34, w: 25, h: 3 }, 
+                    { en: "have a cake", zh: "吃块蛋糕", t: 16, l: 65, w: 25, h: 3 }, 
+                    { en: "have a rest", zh: "休息一下", t: 21, l: 65, w: 25, h: 3 }, 
+                    { en: "have some water", zh: "喝点水", t: 26, l: 65, w: 25, h: 3 }, 
+                    { en: "B Read and answer. Look at picture 4. Why is Bobby tired?", zh: "读一读并回答。看图4。波比为什么累了？", t: 32, l: 10, w: 80, h: 4 }, 
+                    { en: "C Think and say. Think about your younger brother, sister or cousin. How do you take care of him or her?", zh: "想一想，说一说。想想你的弟弟妹妹。你如何照顾他/她？", t: 38, l: 10, w: 80, h: 8 }, 
+                    { en: "I have a younger brother/sister/cousin. He/She is ... years old. I ...", zh: "我有一个弟弟/妹妹。他/她...岁。我...", t: 48, l: 22, w: 42, h: 8 }, 
+                    { en: "Sounds in focus", zh: "语音焦点", t: 56, l: 20, w: 35, h: 5 }, 
+                    { en: "1 Listen to the sentences from the story and read.", zh: "听故事里的句子并朗读。", t: 62, l: 10, w: 60, h: 3 }, 
+                    { en: "I'm hot and thirsty, Bobby.", zh: "我好热好渴，波比。", t: 65, l: 14, w: 40, h: 3 }, 
+                    { en: "Can I come tomorrow?", zh: "我明天还能来吗？", t: 65, l: 58, w: 35, h: 3 }, 
+                    { en: "2 Listen to the rhyme and chant along. Then find more words.", zh: "听歌谣并吟唱。然后找出更多单词。", t: 68, l: 10, w: 80, h: 4 }, 
+                    { en: "Tick-tock, tick-tock. It's eight o'clock.", zh: "滴答滴答。八点钟了。", t: 73.5, l: 14, w: 45, h: 3 }, 
+                    { en: "Can we clean the house now or not?", zh: "我们现在能不能打扫房子？", t: 76.5, l: 14, w: 45, h: 3 }, 
+                    { en: "Tick-tock, tick-tock. It's nine o'clock.", zh: "滴答滴答。九点钟了。", t: 79.5, l: 14, w: 45, h: 3 }, 
+                    { en: "Are you tired? Are you hot?", zh: "你累吗？你热吗？", t: 82.5, l: 14, w: 45, h: 3 }, 
+                    { en: "tick-tock", zh: "滴答滴答", t: 87, l: 20, w: 20, h: 3 } 
+                ] 
+            },
+            { 
+                img: "page5.png", 
+                hotspots: [ 
+                    { en: "Story time", zh: "故事时间", t: 8, l: 18, w: 30, h: 5 }, 
+                    { en: "What's the matter, Mum?", zh: "妈妈，你怎么了？", t: 14, l: 12, w: 45, h: 5 }, 
+                    { en: "1 Hi, I'm home!", zh: "嗨，我到家了！", t: 20, l: 23, w: 20, h: 4 }, 
+                    { en: "Hi, Mum! Let me take your coat.", zh: "嗨，妈妈！让我帮你拿外套。", t: 27, l: 5, w: 30, h: 6 }, 
+                    { en: "I can take your bag, Mum.", zh: "妈妈，我可以帮你提包。", t: 32, l: 67, w: 30, h: 6 }, 
+                    { en: "2 What's the matter, Mum? Are you ill?", zh: "妈妈，你怎么了？你生病了吗？", t: 42, l: 15, w: 50, h: 4 }, 
+                    { en: "No, but I'm tired.", zh: "没有，但我很累。", t: 53, l: 45, w: 18, h: 6 }, 
+                    { en: "Have a rest, Mum.", zh: "休息一下吧，妈妈。", t: 58, l: 14, w: 20, h: 6 }, 
+                    { en: "3 Are you hungry, Mum? Would you like some bread?", zh: "妈妈，你饿吗？你想吃点面包吗？", t: 70, l: 15, w: 40, h: 6 }, { en: "No, thanks. I'm not hungry. I'm thirsty.", zh: "不，谢谢。我不饿。我渴了。", t: 87, l: 61, w: 27, h: 6 } 
+                ] 
+            },
+            { 
+                img: "page6.png", 
+                hotspots: [ 
+                    { en: "4 Here's some water.", zh: "给你点水。", t: 10, l: 19, w: 25, h: 4 }, 
+                    { en: "Thank you, dear.", zh: "谢谢你，亲爱的。", t: 31, l: 51, w: 30, h: 4 }, 
+                    { en: "Tip. Care about others.", zh: "提示：关爱他人。", t: 41, l: 71, w: 25, h: 6 }, 
+                    { en: "5 It's six o'clock. It's time for dinner!", zh: "六点钟了。该吃晚饭了！", t: 45, l: 20, w: 45, h: 4 }, 
+                    { en: "Great! Let's set the table, Su Hai.", zh: "太好了！苏海，我们来摆餐具吧。", t: 53, l: 45, w: 33, h: 6 }, 
+                    { en: "OK.", zh: "好的。", t: 64, l: 78, w: 10, h: 4 }, 
+                    { en: "How do the family take care of Mum?", zh: "家人们是如何照顾妈妈的？", t: 89, l: 18, w: 55, h: 4 } 
+                ] 
+            }
+        ];
+
+        let pIdx = 0;
+        const synth = window.speechSynthesis;
+
+        window.onload = () => { 
+            loadVoices(); 
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = loadVoices;
+            }
+            render(); 
+        };
+
+        function loadVoices() {
+            // 获取所有英语声音
+            const voices = synth.getVoices().filter(v => v.lang.includes('en'));
+            const select = document.getElementById('voiceSelect');
+            if(voices.length > 0) {
+                select.innerHTML = voices.map((v, i) => `<option value="${i}">${v.name.substring(0,15)}</option>`).join('');
+            } else {
+                select.innerHTML = '<option>默认声音</option>';
+            }
+        }
+
+        function render() {
+            const data = unitData[pIdx];
+            document.getElementById('bgImg').src = data.img;
+            document.querySelectorAll('.pageIndicator').forEach(el => el.innerText = (pIdx + 1) + " / " + unitData.length);
+            document.querySelectorAll('.prevBtn').forEach(btn => btn.disabled = (pIdx === 0));
+            document.querySelectorAll('.nextBtn').forEach(btn => btn.disabled = (pIdx === unitData.length - 1));
+            
+            document.getElementById('transBubble').style.display = "none";
+            document.querySelectorAll('.hotspot').forEach(h => h.remove());
+
+            data.hotspots.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'hotspot';
+                div.style.top = item.t + "%"; 
+                div.style.left = item.l + "%"; 
+                div.style.width = item.w + "%"; 
+                div.style.height = item.h + "%";
+                
+                div.onclick = function() {
+                    synth.cancel();
+                    const cleanText = item.en.replace(/^(\d+[\.\s]*)+/g, "").trim();
+                    const utter = new SpeechSynthesisUtterance(cleanText);
+                    utter.rate = document.getElementById('rate').value;
+                    const voices = synth.getVoices().filter(v => v.lang.includes('en'));
+                    const selIdx = document.getElementById('voiceSelect').value;
+                    if(voices[selIdx]) utter.voice = voices[selIdx];
+                    synth.speak(utter);
+
+                    if(document.getElementById('transToggle').checked) {
+                        const b = document.getElementById('transBubble');
+                        b.innerText = item.zh;
+                        b.style.display = "block";
+                        b.style.left = (item.l + item.w/2) + "%";
+                        
+                        // 智能防遮挡：太靠上就往下弹，否则往上弹
+                        if(item.t < 20) {
+                            b.style.top = (item.t + item.h + 0.5) + "%";
+                            b.style.bottom = "auto";
+                        } else {
+                            b.style.top = "auto";
+                            b.style.bottom = (100 - item.t + 2) + "%"; 
+                        }
+                    }
+                };
+                document.getElementById('bookBox').appendChild(div);
+            });
+        }
+
+        function changePage(step) { 
+            pIdx = Math.max(0, Math.min(unitData.length - 1, pIdx + step)); 
+            window.scrollTo({top:0, behavior:'smooth'}); 
+            render(); 
+        }
+    </script>
+</body>
+</html>

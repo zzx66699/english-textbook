@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="zh">
 <head>
     <title>Unit 1 We're friends</title>
     <meta charset="UTF-8">
@@ -22,7 +21,7 @@
     <header>
 
         <div class="header-box">
-            <img class="profile-avatar" src="images/avatar.jpg" alt="an avatar of teacher shi">
+            <a href="./index.html"><img class="profile-avatar" src="images/avatar.jpg" alt="an avatar of teacher shi"></a>
             <p class="profile-name">石老师英语</p>
             <i class="fa-solid fa-bars"></i>
         </div>
@@ -32,13 +31,28 @@
                 <li><a href="#">年级选择</a></li>
                 <li><a href="#">错题积累</a></li>
                 <li><a href="#">错题统计</a></li>
+        
             <ul>
         </nav>
 
     </header>
 
     <main>
-        <section id="settings">
+        <section id="unit-nav" class="unit-nav">
+            <ul id="unit-list">
+            </ul>
+        </section>
+
+        <section id="mode-nav" class="mode-nav">
+            <ul>
+                <li><a id="link-text">课文跟读</a></li>
+                <li><a id="link-words">单词点读</a></li>
+                <li><a id="link-dictation">单词默写</a></li>
+            <ul>
+
+        </section>
+
+        <section id="settings" class="settings">
             
             <div class="translate-checkbox" id="translate-checkbox">
                 <input type="checkbox" id="need-translate">
@@ -61,7 +75,7 @@
 
         <section>
             <div class="img-container" id="img-container">
-                <img id="page-image" class="page-image" src="page1.png" alt="textbook page">
+                <img id="text-image" class="text-image" alt="textbook">
                 <div id="hotmap-layer"></div>
                 <div id="tranlation-layer"></div>
             </div>
@@ -84,42 +98,6 @@
             
         </section>
 
-
-        <!-- <section class="practice-section" id="practiceSection">
-            <h3><i class="fas fa-pencil-alt"></i> 练一练 - 巩固所学知识</h3>
-            <div class="practice-container">
-                <div class="practice-controls">
-                    <div class="question-counter">
-                        题目 <span id="currentQuestion">1</span> / <span id="totalQuestions">5</span>
-                    </div>
-                </div>
-                <div class="practice-question" id="practiceQuestion">
-                    请选择正确的翻译：
-                </div>
-                <div class="practice-options" id="practiceOptions">
-                </div>
-                <div class="practice-feedback" id="practiceFeedback"></div>
-                <div class="explanation-box" id="explanationBox">
-                    <h4><i class="fas fa-info-circle"></i> 答案解析</h4>
-                    <p id="explanationText"></p>
-                </div>
-                <button class="explanation-btn" id="explanationBtn">
-                    <i class="fas fa-lightbulb"></i> 查看解析
-                </button>
-                <button class="next-question-btn" id="nextQuestionBtn">
-                    <i class="fas fa-forward"></i> 下一题
-                </button>
-                <button class="restart-practice-btn" id="restartPracticeBtn">
-                    <i class="fas fa-redo"></i> 重新练习
-                </button>
-                <div class="practice-complete-message" id="practiceCompleteMessage">
-                    <h4><i class="fas fa-trophy"></i> 太棒了！</h4>
-                    <p>你已经完成了本页的所有练习题！</p>
-                    <p>答对题目: <span id="practiceCorrectCount">0</span> / <span id="practiceTotalCount">0</span></p>
-                    <p>你的学习进度已经更新，继续加油哦！</p>
-                </div>
-            </div>
-        </section> -->
     </main>
 
     <footer>
@@ -129,6 +107,6 @@
             <span>更多资源：小红书账号shlshyy</span>
         </p>
     </footer>
-    <script src="unit.js" type="module"></script>
+    <script src="text.js" type="module"></script>
 </body>
 </html>

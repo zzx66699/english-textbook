@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Unit 7 电脑专用版</title>
+    <style>
+        /* --- 基础样式 --- */
+        :root { --pink: #ffdae0; --blue: #c0e8ff; --green: #d1f4e0; --yellow: #fff2cc; --text: #5d4037; --soft-white: #f5f5f5; --nav-bg: #ffffff; }
+        body { font-family: "Comic Sans MS", "幼圆", sans-serif; background: var(--soft-white); margin: 0; display: flex; flex-direction: column; align-items: center; color: var(--text); padding-bottom: 60px; -webkit-tap-highlight-color: transparent; user-select: none; }
+        
+        /* 顶部栏 */
+        .top-bar { width: 96vw; max-width: 800px; background: var(--nav-bg); padding: 15px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; align-items: center; border: 4px solid var(--green); border-top: none; border-radius: 0 0 20px 20px; position: sticky; top: 0; z-index: 200; box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        
+        /* 按钮 */
+        .nav-btn { background: var(--pink); border: 3px solid #fff; color: #d84315; padding: 8px 24px; border-radius: 25px; cursor: pointer; font-size: 16px; font-weight: 900; box-shadow: 0 4px 0 #ffab91; transition: all 0.1s; }
+        .nav-btn:active { transform: translateY(4px); box-shadow: none; }
+        .nav-btn:disabled { background: #eeeeee; box-shadow: none; color: #ccc; cursor: not-allowed; border-color:#eee;}
+        
+        /* 配置项 */
+        .config-item { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: bold; }
+        .icon-emoji { font-size: 28px; line-height: 1; }
+        
+        /* 声音选择框 */
+        select { border: 3px solid var(--blue); border-radius: 12px; padding: 8px 5px; font-size: 16px; font-weight: bold; color: #555; max-width: 140px; outline: none; background: #fff; }
+        
+        /* 页码 */
+        .page-badge { background: var(--yellow); padding: 8px 20px; border-radius: 20px; color: #f9a825; font-weight: 900; font-size: 18px; border: 3px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        
+        /* 滑块 */
+        input[type=range] { transform: scale(1.2); margin: 0 5px; accent-color: var(--pink); cursor: pointer; }
+        
+        /* 书本容器 */
+        .book-container { position: relative; width: 96vw; max-width: 800px; aspect-ratio: 780 / 1100; margin: 20px 0; background: #ffffff; border: 8px solid var(--green); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .page-img { width: 100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: fill; }
+        
+        /* 热点区域 */
+        .hotspot { position: absolute; cursor: pointer; z-index: 10; border-radius: 8px; }
+        .hotspot:active { background: rgba(255, 255, 0, 0.3); } 
+        
+        /* --- 翻译气泡 (翻译置顶逻辑) --- */
+        .trans-popup { 
+            position: absolute; 
+            background: rgba(255, 255, 255, 0.95); 
+            border: 3px solid var(--pink); 
+            border-radius: 15px; 
+            padding: 10px 15px; 
+            color: #d84315; 
+            font-weight: bold; 
+            font-size: 18px; 
+            pointer-events: none; /* 点击穿透 */
+            z-index: 100; 
+            transform: translateX(-50%); 
+            display: none; 
+            text-align: center; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            min-width: 120px; 
+            width: max-content;
+            max-width: 90%;
+            white-space: normal;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <button class="nav-btn prevBtn" onclick="changePage(-1)">上一页</button>
+        <div class="page-badge pageIndicator">1 / 6</div>
+        <button class="nav-btn nextBtn" onclick="changePage(1)">下一页</button>
+        
+        <div style="width: 1px; height: 30px; background: #eee; margin: 0 5px;"></div>
+        
+        <div class="config-item">
+            <span style="font-size:20px;">译</span>
+            <input type="checkbox" id="transToggle" checked style="width:22px;height:22px;accent-color:var(--green); cursor:pointer;">
+        </div>
+        <div class="config-item">
+            <span class="icon-emoji">🐢</span>
+            <input type="range" id="rate" min="0.5" max="1.5" step="0.1" value="0.9" style="width:80px;">
+            <span class="icon-emoji">🐰</span>
+        </div>
+        <div class="config-item">
+            <select id="voiceSelect"></select>
+        </div>
+    </div>
+
+    <div class="book-container" id="bookBox">
+        <img id="bgImg" class="page-img" src="page1.png" alt="课文图片">
+        <div id="transBubble" class="trans-popup"></div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:20px; margin-bottom: 30px;">
+        <button class="nav-btn prevBtn" onclick="changePage(-1)">上一页</button>
+        <div class="page-badge pageIndicator">1 / 6</div>
+        <button class="nav-btn nextBtn" onclick="changePage(1)">下一页</button>
+    </div>
+
+    <script>
+        // --- Unit 7 数据 (Chores) ---
+        // 包含完整的中英文对照及坐标
+        const unitData = [
+            {
+                img: "page1.png",
+                hotspots: [
+                    { en: "Unit 7 Chores", zh: "第七单元 家务", t: 4, l: 20, w: 35, h: 10 },
+                    { en: "wash the clothes", zh: "洗衣服", t: 60, l: 15, w: 25, h: 4 },
+                    { en: "wash the dishes", zh: "洗碗", t: 36, l: 70, w: 25, h: 4 },
+                    { en: "water the flowers", zh: "浇花", t: 70, l: 70, w: 25, h: 4 },
+                    { en: "My family has a good routine.", zh: "我的家人有很好的日常生活习惯。", t: 73, l: 13, w: 50, h: 3 },
+                    { en: "To keep our home lovely and clean.", zh: "为了保持我们的家可爱又整洁。", t: 76, l: 13, w: 50, h: 3 },
+                    { en: "I make my bed and feed the cat.", zh: "我铺床并喂猫。", t: 79, l: 13, w: 50, h: 3 },
+                    { en: "I'm good at doing chores like that!", zh: "我擅长做那样的家务！", t: 82, l: 13, w: 50, h: 3 },
+                    { en: "My sister helps Dad wash the car.", zh: "我姐姐帮助爸爸洗车。", t: 85, l: 13, w: 50, h: 3 },
+                    { en: "What a wonderful team we are.", zh: "我们是多么棒的一个团队啊。", t: 88, l: 13, w: 50, h: 3 }
+                ]
+            },
+            {
+                img: "page2.png",
+                hotspots: [
+                    { en: "Big question. What chores can you do at home?", zh: "核心问题：你在家能做哪些家务？", t: 9, l: 60, w: 35, h: 10 },
+                    { en: "Learning objectives", zh: "学习目标", t: 25, l: 65, w: 25, h: 5 },
+                    { en: "To talk about doing chores", zh: "谈论做家务", t: 34, l: 62, w: 32, h: 5 },
+                    { en: "To make a chore table", zh: "制作家务表", t: 41, l: 62, w: 32, h: 5 },
+                    { en: "To say what chores I can do at home", zh: "说出我在家能做的家务", t: 46, l: 62, w: 32, h: 5 },
+                    { en: "cook lunch", zh: "做午饭", t: 28, l: 20, w: 15, h: 3 },
+                    { en: "make the bed", zh: "整理床铺", t: 38, l: 35, w: 18, h: 3 },
+                    { en: "sweep the floor", zh: "扫地", t: 62, l: 12, w: 18, h: 3 },
+                    { en: "feed the cat", zh: "喂猫", t: 74, l: 25, w: 15, h: 3 },
+                    { en: "1 Look at the picture. What are the people doing?", zh: "看图。人们在做什么？", t: 65, l: 62, w: 32, h: 8 },
+                    { en: "2 Listen to the rhyme and chant along.", zh: "听歌谣并跟着吟唱。", t: 76, l: 62, w: 32, h: 5 },
+                    { en: "3 Think about answers to the big question.", zh: "思考核心问题的答案。", t: 83, l: 62, w: 32, h: 5 }
+                ]
+            },
+            {
+                img: "page3.png",
+                hotspots: [
+                    { en: "Cartoon time", zh: "漫画时间", t: 10, l: 15, w: 30, h: 5 },
+                    { en: "Good job!", zh: "做得好！", t: 16, l: 10, w: 20, h: 4 },
+                    { en: "1 It's Sunday. Let's do some chores.", zh: "今天是星期天。我们要干点家务活。", t: 21, l: 15, w: 28, h: 6 },
+                    { en: "Good idea!", zh: "好主意！", t: 36, l: 33, w: 15, h: 4 },
+                    { en: "2 Bobby, what are you doing?", zh: "波比，你在做什么？", t: 20, l: 57, w: 22, h: 5 },
+                    { en: "I'm washing the dishes.", zh: "我在洗碗。", t: 34, l: 68, w: 20, h: 6 },
+                    { en: "3 Oh no!", zh: "噢，不！", t: 43, l: 30, w: 10, h: 4 },
+                    { en: "4 What are you doing now?", zh: "你现在在做什么？", t: 43, l: 55, w: 30, h: 4 },
+                    { en: "I'm washing the clothes.", zh: "我在洗衣服。", t: 60, l: 55, w: 30, h: 4 },
+                    { en: "5 I'm watering the flowers.", zh: "我在浇花。", t: 65, l: 14, w: 30, h: 4 },
+                    { en: "You're watering the floor!", zh: "你在浇地板！", t: 75, l: 33, w: 20, h: 5 },
+                    { en: "6 What a clean house!", zh: "多么干净的房子啊！", t: 67, l: 60, w: 25, h: 4 },
+                    { en: "Good job!", zh: "干得好！", t: 85, l: 66, w: 15, h: 4 },
+                    { en: "What chores does Bobby do at home?", zh: "波比在家做什么家务？", t: 89, l: 15, w: 45, h: 4 }
+                ]
+            },
+            {
+                img: "page4.png",
+                hotspots: [
+                    { en: "A Read, match and order", zh: "读一读，连一连并排序", t: 11, l: 10, w: 40, h: 3 },
+                    { en: "What is Bobby doing?", zh: "波比正在做什么？", t: 15, l: 10, w: 30, h: 3 },
+                    { en: "He is watering the flowers.", zh: "他正在浇花。", t: 33, l: 18, w: 20, h: 5 },
+                    { en: "He is washing the dishes.", zh: "他正在洗碗。", t: 33, l: 41, w: 20, h: 5 },
+                    { en: "He is washing the clothes.", zh: "他正在洗衣服。", t: 33, l: 63, w: 20, h: 5 },
+                    { en: "B Do a role-play", zh: "做角色扮演", t: 40, l: 10, w: 30, h: 3 },
+                    { en: "What are you doing, Bobby?", zh: "你正在做什么，波比？", t: 46, l: 24, w: 35, h: 4 },
+                    { en: "C Think and say", zh: "想一想，说一说", t: 52, l: 10, w: 30, h: 3 },
+                    { en: "1 Do you think Bobby does these chores well?", zh: "你觉得波比做这些家务做得好吗？", t: 55, l: 10, w: 80, h: 4 },
+                    { en: "2 What chores do you do at home?", zh: "你在家做哪些家务？", t: 59, l: 10, w: 80, h: 4 },
+                    { en: "Sounds in focus", zh: "语音焦点", t: 63, l: 20, w: 30, h: 5 },
+                    { en: "1 Listen to the sentence from the story and read.", zh: "听故事里的句子并朗读。", t: 67, l: 10, w: 60, h: 3 },
+                    { en: "Bobby, what are you doing?", zh: "波比，你正在做什么？", t: 70, l: 14, w: 60, h: 3 },
+                    { en: "2 Listen to the rhyme and chant along. Then find more words.", zh: "听歌谣并吟唱。然后找出更多单词。", t: 73, l: 10, w: 80, h: 3 },
+                    { en: "Can you water the yellow flowers?", zh: "你能给那些黄色的花浇水吗？", t: 79, l: 14, w: 45, h: 3 },
+                    { en: "They grow in the garden by the wall.", zh: "它们长在墙边的花园里。", t: 82, l: 14, w: 45, h: 3 },
+                    { en: "Yes, I can. Yes, I can.", zh: "是的，我能。是的，我能。", t: 85, l: 14, w: 45, h: 3 },
+                    { en: "They're so beautiful. They're so tall.", zh: "它们真漂亮。它们真高。", t: 88, l: 14, w: 45, h: 3 }
+                ]
+            },
+            {
+                img: "page5.png",
+                hotspots: [
+                    { en: "Story time", zh: "故事时间", t: 10, l: 15, w: 30, h: 5 },
+                    { en: "A busy weekend", zh: "忙碌的周末", t: 16, l: 13, w: 40, h: 4 },
+                    { en: "1 It's Saturday. Mum and Dad are doing chores. Mum is cooking lunch. Dad is washing the clothes.", zh: "今天是星期六。爸爸妈妈在做家务。妈妈在做午饭。爸爸在洗衣服。", t: 20, l: 15, w: 75, h: 6 },
+                    { en: "2 Su Yang and I are also doing chores. We're part of the family, so we want to help.", zh: "苏阳和我也在做家务。我们是家庭的一份子，所以我们要帮忙。", t: 53, l: 15, w: 75, h: 6 },
+                    { en: "Su Yang is watering the flowers. What am I doing? I'm making the bed.", zh: "苏阳在浇花。我在做什么？我在整理床铺。", t: 58, l: 15, w: 75, h: 4 },
+                    { en: "Note -ing.", zh: "注意 -ing 结尾。", t: 89, l: 56, w: 30, h: 4 }
+                ]
+            },
+            {
+                img: "page6.png",
+                hotspots: [
+                    { en: "3 It's half past twelve. It's after lunch. Mum is cleaning the table. Su Yang is washing the dishes. I'm feeding our cat.", zh: "现在是十二点半。午饭后。妈妈在擦桌子。苏阳在洗碗。我正在喂猫。", t: 12, l: 15, w: 75, h: 6 },
+                    { en: "4 Our home is clean and nice now. We have a busy weekend, but we all feel happy.", zh: "我们的家现在干净又漂亮。我们度过了一个忙碌的周末，但我们都感到很高兴。", t: 52, l: 15, w: 75, h: 5 },
+                    { en: "What chores do the family do at home?", zh: "家人们在家做什么家务？", t: 88, l: 15, w: 50, h: 4 }
+                ]
+            }
+        ];
+
+        let pIdx = 0;
+        const synth = window.speechSynthesis;
+
+        window.onload = () => { 
+            loadVoices(); 
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = loadVoices;
+            }
+            render(); 
+        };
+
+        function loadVoices() {
+            const voices = synth.getVoices().filter(v => v.lang.includes('en'));
+            const select = document.getElementById('voiceSelect');
+            if(voices.length > 0) {
+                select.innerHTML = voices.map((v, i) => `<option value="${i}">${v.name.substring(0,15)}</option>`).join('');
+            } else {
+                select.innerHTML = '<option>默认声音</option>';
+            }
+        }
+
+        function render() {
+            const data = unitData[pIdx];
+            document.getElementById('bgImg').src = data.img;
+            document.querySelectorAll('.pageIndicator').forEach(el => el.innerText = (pIdx + 1) + " / " + unitData.length);
+            document.querySelectorAll('.prevBtn').forEach(btn => btn.disabled = (pIdx === 0));
+            document.querySelectorAll('.nextBtn').forEach(btn => btn.disabled = (pIdx === unitData.length - 1));
+            
+            document.getElementById('transBubble').style.display = "none";
+            document.querySelectorAll('.hotspot').forEach(h => h.remove());
+
+            data.hotspots.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'hotspot';
+                div.style.top = item.t + "%"; 
+                div.style.left = item.l + "%"; 
+                div.style.width = item.w + "%"; 
+                div.style.height = item.h + "%";
+                
+                div.onclick = function() {
+                    synth.cancel();
+                    const cleanText = item.en.replace(/^([0-9A-Z]+[\.\s]\s*)+/g, "").trim();
+                    const utter = new SpeechSynthesisUtterance(cleanText);
+                    utter.rate = document.getElementById('rate').value;
+                    const voices = synth.getVoices().filter(v => v.lang.includes('en'));
+                    const selIdx = document.getElementById('voiceSelect').value;
+                    if(voices[selIdx]) utter.voice = voices[selIdx];
+                    synth.speak(utter);
+
+                    if(document.getElementById('transToggle').checked) {
+                        const b = document.getElementById('transBubble');
+                        b.innerText = item.zh;
+                        b.style.display = "block";
+                        b.style.left = (item.l + item.w/2) + "%";
+                        
+                        // 智能判断：如果句子位置在页面顶部 (<20%)，气泡就往下弹
+                        if(item.t < 20) {
+                            b.style.top = (item.t + item.h + 0.5) + "%";
+                            b.style.bottom = "auto";
+                        } else {
+                            b.style.top = "auto";
+                            b.style.bottom = (100 - item.t + 2) + "%"; 
+                        }
+                    }
+                };
+                document.getElementById('bookBox').appendChild(div);
+            });
+        }
+
+        function changePage(step) { 
+            pIdx = Math.max(0, Math.min(unitData.length - 1, pIdx + step)); 
+            window.scrollTo({top:0, behavior:'smooth'}); 
+            render(); 
+        }
+    </script>
+</body>
+</html>

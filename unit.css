@@ -86,21 +86,28 @@ header {
 }
 
 
-nav ul {
+ul {
     list-style: none; 
     display: flex;
     gap: 10px;
     justify-content: center;
 }
 
-/* 2. title */
-.title {
-    padding: 20px 50px;
+
+
+/* 2. Sub navigation */
+.unit-nav {
+    background: var(--primary-green)
 }
 
+.mode-nav {
+    background: var(--light-orange)
+}
 
-/* 3. mode selector */
-
+/* 3. Setting */
+.settings {
+    background: var(--primary-green)
+}
 
 
 /* 3. main image */

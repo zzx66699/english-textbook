@@ -1,15 +1,56 @@
 import {pagesTexts} from "./data.js"
 
+const totalUnit = 8; 
 const synth = window.speechSynthesis;
 const voiceSelect = document.getElementById("voice-select");
 const rateSelect = document.getElementById("rate-select");
 const translateCheckbox = document.getElementById("translate-checkbox")
+const textImg = document.getElementById("text-image")
 
-let currentMode = null;
 let englishVoices = [];
 
+const p = new URLSearchParams(location.search);
+
+const grade = p.get("grade");
+const semester = p.get("semester");
+const unit = p.get("unit");
+
+
 // ---------- Initialization ----------
-// load voice from Web Speech API
+// 1. Load the unit bar for current grade and semester
+if (!grade || !semester) {
+  document.body.innerHTML = "<p>请从首页选择年级和学期进入</p>";
+  throw new Error("Missing grade or semester");
+}
+
+let unitNavHtml = ""
+for (let i = 1; i <= totalUnit; i++){
+    unitNavHtml += `
+    <li>
+        <a href="./text.html?grade=${grade}&semester=${semester}&unit=${i}">Unit ${i}</a>
+    </li>`
+    
+}
+
+document.getElementById("unit-list").innerHTML = unitNavHtml
+
+
+// 2. Load the mode bar for the current unit
+document.getElementById("link-text").href =
+`./text.html?grade=${grade}&semester=${semester}&unit=${unit || 1}`;
+
+document.getElementById("link-words").href =
+`./words.html?grade=${grade}&semester=${semester}&unit=${unit || 1}`;
+
+document.getElementById("link-dictation").href =
+`./dictation.html?grade=${grade}&semester=${semester}&unit=${unit || 1}`;
+
+
+// 3. Load the text image
+textImg.src = `./images/grade${grade}/semester${semester}/unit${unit || 1}/page1.png`
+
+
+// 4. Load voice from Web Speech API
 function loadVoices() {
     const voices = synth.getVoices();
     englishVoices = voices.filter(v => v.lang.startsWith("en"));
@@ -34,7 +75,8 @@ function loadVoices() {
 speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
 
-// create hotmap
+
+// 5. Create hotmap
 function renderHotMap(pageNumber){
     const hotmapLayer = document.getElementById("hotmap-layer");
     hotmapLayer.innerHTML = ""; 
@@ -62,6 +104,8 @@ function renderHotMap(pageNumber){
 }
 
 renderHotMap(1)
+
+
 
 
 
@@ -150,7 +194,7 @@ function pageDecrement() {
 }
 
 function pageRender() {
-    document.getElementById("page-image").src = `page${count}.png` 
+    textImg.src = `./images/grade${grade}/semester${semester}/unit${unit || 1}/page${count}.png` 
     
 }
 

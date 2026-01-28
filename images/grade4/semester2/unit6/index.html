@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Unit 6 电脑专用版</title>
+    <style>
+        /* --- 基础样式 --- */
+        :root { --pink: #ffdae0; --blue: #c0e8ff; --green: #d1f4e0; --yellow: #fff2cc; --text: #5d4037; --soft-white: #f5f5f5; --nav-bg: #ffffff; }
+        body { font-family: "Comic Sans MS", "幼圆", sans-serif; background: var(--soft-white); margin: 0; display: flex; flex-direction: column; align-items: center; color: var(--text); padding-bottom: 60px; -webkit-tap-highlight-color: transparent; user-select: none; }
+        
+        /* 顶部栏 */
+        .top-bar { width: 96vw; max-width: 800px; background: var(--nav-bg); padding: 15px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; align-items: center; border: 4px solid var(--green); border-top: none; border-radius: 0 0 20px 20px; position: sticky; top: 0; z-index: 200; box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        
+        /* 按钮 */
+        .nav-btn { background: var(--pink); border: 3px solid #fff; color: #d84315; padding: 8px 24px; border-radius: 25px; cursor: pointer; font-size: 16px; font-weight: 900; box-shadow: 0 4px 0 #ffab91; transition: all 0.1s; }
+        .nav-btn:active { transform: translateY(4px); box-shadow: none; }
+        .nav-btn:disabled { background: #eeeeee; box-shadow: none; color: #ccc; cursor: not-allowed; border-color:#eee;}
+        
+        /* 配置项 */
+        .config-item { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: bold; }
+        .icon-emoji { font-size: 28px; line-height: 1; }
+        
+        /* 声音选择框 */
+        select { border: 3px solid var(--blue); border-radius: 12px; padding: 8px 5px; font-size: 16px; font-weight: bold; color: #555; max-width: 140px; outline: none; background: #fff; }
+        
+        /* 页码 */
+        .page-badge { background: var(--yellow); padding: 8px 20px; border-radius: 20px; color: #f9a825; font-weight: 900; font-size: 18px; border: 3px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        
+        /* 滑块 */
+        input[type=range] { transform: scale(1.2); margin: 0 5px; accent-color: var(--pink); cursor: pointer; }
+        
+        /* 书本容器 */
+        .book-container { position: relative; width: 96vw; max-width: 800px; aspect-ratio: 780 / 1100; margin: 20px 0; background: #ffffff; border: 8px solid var(--green); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .page-img { width: 100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: fill; }
+        
+        /* 热点区域 */
+        .hotspot { position: absolute; cursor: pointer; z-index: 10; border-radius: 8px; }
+        .hotspot:active { background: rgba(255, 255, 0, 0.3); } 
+        
+        /* --- 翻译气泡 (翻译置顶逻辑) --- */
+        .trans-popup { 
+            position: absolute; 
+            background: rgba(255, 255, 255, 0.95); 
+            border: 3px solid var(--pink); 
+            border-radius: 15px; 
+            padding: 10px 15px; 
+            color: #d84315; 
+            font-weight: bold; 
+            font-size: 18px; 
+            pointer-events: none; /* 点击穿透 */
+            z-index: 100; 
+            transform: translateX(-50%); 
+            display: none; 
+            text-align: center; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            min-width: 120px; 
+            width: max-content;
+            max-width: 90%;
+            white-space: normal;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <button class="nav-btn prevBtn" onclick="changePage(-1)">上一页</button>
+        <div class="page-badge pageIndicator">1 / 6</div>
+        <button class="nav-btn nextBtn" onclick="changePage(1)">下一页</button>
+        
+        <div style="width: 1px; height: 30px; background: #eee; margin: 0 5px;"></div>
+        
+        <div class="config-item">
+            <span style="font-size:20px;">译</span>
+            <input type="checkbox" id="transToggle" checked style="width:22px;height:22px;accent-color:var(--green); cursor:pointer;">
+        </div>
+        <div class="config-item">
+            <span class="icon-emoji">🐢</span>
+            <input type="range" id="rate" min="0.5" max="1.5" step="0.1" value="0.9" style="width:80px;">
+            <span class="icon-emoji">🐰</span>
+        </div>
+        <div class="config-item">
+            <select id="voiceSelect"></select>
+        </div>
+    </div>
+
+    <div class="book-container" id="bookBox">
+        <img id="bgImg" class="page-img" src="page1.png" alt="课文图片">
+        <div id="transBubble" class="trans-popup"></div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:20px; margin-bottom: 30px;">
+        <button class="nav-btn prevBtn" onclick="changePage(-1)">上一页</button>
+        <div class="page-badge pageIndicator">1 / 6</div>
+        <button class="nav-btn nextBtn" onclick="changePage(1)">下一页</button>
+    </div>
+
+    <script>
+        // --- Unit 6 数据 (Jobs) ---
+        // 包含完整的中英文对照及坐标
+        const unitData = [
+            {
+                img: "page1.png",
+                hotspots: [
+                    { en: "Unit 6 Jobs", zh: "第六单元 职业", t: 4, l: 20, w: 45, h: 10 },
+                    { en: "driver", zh: "司机", t: 34, l: 4, w: 10, h: 3 },
+                    { en: "nurse", zh: "护士", t: 37, l: 28, w: 10, h: 3 },
+                    { en: "worker", zh: "工人", t: 47, l: 36, w: 10, h: 3 },
+                    { en: "doctor", zh: "医生", t: 54, l: 24, w: 10, h: 3 },
+                    { en: "farmer", zh: "农民", t: 57, l: 65, w: 10, h: 3 },
+                    { en: "teacher", zh: "教师", t: 47, l: 77, w: 10, h: 3 },
+                    { en: "Teachers, farmers and workers.", zh: "教师、农民和工人。", t: 79, l: 15, w: 50, h: 2.5 },
+                    { en: "Drivers, nurses and doctors.", zh: "司机、护士和医生。", t: 82, l: 15, w: 50, h: 2.5 },
+                    { en: "They work hard and do their best.", zh: "他们努力工作，竭尽全力。", t: 85, l: 15, w: 50, h: 2.5 },
+                    { en: "All jobs are good. All jobs are great!", zh: "所有的工作都很好。所有的工作都很棒！", t: 88, l: 15, w: 50, h: 2.5 }
+                ]
+            },
+            {
+                img: "page2.png",
+                hotspots: [
+                    { en: "Big question. What makes a job great?", zh: "核心问题：什么使一份工作变得伟大？", t: 9, l: 62, w: 35, h: 10 },
+                    { en: "Learning objectives", zh: "学习目标", t: 25, l: 65, w: 28, h: 8 },
+                    { en: "To name some jobs", zh: "命名一些职业", t: 33, l: 65, w: 30, h: 5 },
+                    { en: "To talk about people's jobs and what they do", zh: "谈论人们的职业及其工作内容", t: 38, l: 65, w: 30, h: 7 },
+                    { en: "To discuss why different jobs are great", zh: "讨论为什么不同的职业是伟大的", t: 46, l: 65, w: 30, h: 7 },
+                    { en: "cook", zh: "厨师", t: 34, l: 18, w: 10, h: 3 },
+                    { en: "policewoman/policeman", zh: "女警察/男警察", t: 71, l: 18, w: 22, h: 6 },
+                    { en: "1 Look at the picture. What are the students doing?", zh: "看图。学生们正在做什么？", t: 65, l: 64, w: 30, h: 8 },
+                    { en: "2 Listen to the rhyme and chant along.", zh: "听歌谣并跟着吟唱。", t: 75, l: 64, w: 30, h: 6 },
+                    { en: "3 Think about answers to the big question.", zh: "思考核心问题的答案。", t: 83, l: 64, w: 30, h: 6 }
+                ]
+            },
+            {
+                img: "page3.png",
+                hotspots: [
+                    { en: "Cartoon time", zh: "漫画时间", t: 5, l: 18, w: 30, h: 5 },
+                    { en: "He's John too", zh: "他也叫约翰", t: 11, l: 12, w: 45, h: 4 },
+                    { en: "1 Look at the hospital, Henry! My parents work there.", zh: "看那家医院，亨利！我父母在那里工作。", t: 15.5, l: 16, w: 38, h: 6 },
+                    { en: "What are your parents' jobs, Bobby?", zh: "你父母的职业是什么，波比？", t: 23, l: 8, w: 18, h: 10 },
+                    { en: "My dad is a doctor. My mum is a nurse. They help sick people.", zh: "我爸爸是医生。我妈妈是护士。他们帮助病人。", t: 36, l: 25, w: 30, h: 11 },
+                    { en: "2 What about your parents?", zh: "你父母呢？", t: 15.5, l: 74, w: 18, h: 6 },
+                    { en: "My mum is a teacher. My dad is a driver. They're busy.", zh: "我妈妈是老师。我爸爸是司机。他们很忙。", t: 35, l: 58, w: 30, h: 10 },
+                    { en: "3 Is your dad a bus driver?", zh: "你爸爸是公交车司机吗？", t: 51, l: 12, w: 20, h: 6 },
+                    { en: "No, he isn't.", zh: "不，他不是。", t: 66, l: 30, w: 15, h: 4 },
+                    { en: "4 Is your dad a taxi driver?", zh: "你爸爸是出租车司机吗？", t: 46, l: 61, w: 18, h: 6 },
+                    { en: "No, he isn't.", zh: "不，他不是。", t: 59, l: 54, w: 15, h: 4 },
+                    { en: "5 My dad is a train driver! Look up there!", zh: "我爸爸是火车司机！看上面！", t: 72, l: 20, w: 35, h: 6 },
+                    { en: "6 Wow! That's cool!", zh: "哇！太酷了！", t: 85, l: 62, w: 25, h: 4 },
+                    { en: "How do these jobs help people?", zh: "这些职业是如何帮助人们的？", t: 92, l: 16, w: 45, h: 4 }
+                ]
+            },
+            {
+                img: "page4.png",
+                hotspots: [
+                    { en: "A Read and match", zh: "读一读，连一连", t: 8, l: 9, w: 30, h: 3 },
+                    { en: "B Ask and answer. What are Bobby's parents' jobs? What are Henry's parents' jobs?", zh: "问与答。波比父母的职业是什么？亨利父母的职业是什么？", t: 29, l: 9, w: 80, h: 8 },
+                    { en: "C Think and say. What are your parents' jobs? How do they help people?", zh: "想一想，说一说。你父母的职业是什么？他们如何帮助人们？", t: 47, l: 9, w: 80, h: 6 },
+                    { en: "Sounds in focus", zh: "语音焦点", t: 55.5, l: 20, w: 30, h: 5 },
+                    { en: "1 Listen to the sentences from the story and read.", zh: "听故事里的句子并朗读。", t: 61, l: 10, w: 60, h: 3 },
+                    { en: "My mum is a nurse.", zh: "我妈妈是一名护士。", t: 64.5, l: 10, w: 35, h: 3 },
+                    { en: "Look up there!", zh: "看那上面！", t: 64.5, l: 49, w: 35, h: 3 },
+                    { en: "2 Listen to the rhyme and chant along. Then find more words.", zh: "听歌谣并吟唱。然后找出更多单词。", t: 68.5, l: 10, w: 80, h: 4 },
+                    { en: "My mum is a driver.", zh: "我妈妈是一名司机。", t: 74, l: 12, w: 35, h: 3 },
+                    { en: "She can drive big trucks.", zh: "她会开大卡车。", t: 77, l: 12, w: 35, h: 3 },
+                    { en: "My dad is a worker.", zh: "我爸爸是一名工人。", t: 80.5, l: 12, w: 35, h: 3 },
+                    { en: "He can make rubber ducks.", zh: "他会做橡皮鸭子。", t: 84, l: 12, w: 35, h: 3 },
+                    { en: "mum", zh: "妈妈", t: 89, l: 18, w: 15, h: 3 }
+                ]
+            },
+            {
+                img: "page5.png",
+                hotspots: [
+                    { en: "Story time", zh: "故事时间", t: 5, l: 18, w: 30, h: 5 },
+                    { en: "Happy Labour Day!", zh: "劳动节快乐！", t: 11, l: 12, w: 45, h: 4 },
+                    { en: "1 What are your parents' jobs, Liu Tao?", zh: "刘涛，你父母的职业是什么？", t: 20, l: 13, w: 32, h: 6 },
+                    { en: "My father is a taxi driver. Drivers take people to different places. My mother is a cook. Cooks make delicious food.", zh: "我父亲是出租车司机。司机带人们去不同的地方。我母亲是厨师。厨师做出美味的食物。", t: 43, l: 52, w: 45, h: 10.5 },
+                    { en: "2 What's your father's job?", zh: "你父亲的职业是什么？", t: 59, l: 21, w: 20, h: 6 },
+                    { en: "He's a doctor. Doctors help sick people.", zh: "他是医生。医生帮助病人。", t: 64, l: 73, w: 22, h: 8 },
+                    { en: "What about your mother?", zh: "你母亲呢？", t: 76, l: 10, w: 25, h: 5 },
+                    { en: "She's a worker. She can make nice sweets.", zh: "她是工人。她会做漂亮的点心。", t: 82.5, l: 74, w: 22, h: 8 },
+                    { en: "I love sweets!", zh: "我爱吃点心！", t: 90.5, l: 28, w: 18, h: 4 }
+                ]
+            },
+            {
+                img: "page6.png",
+                hotspots: [
+                    { en: "3 What's your father's job, Yang Ling?", zh: "杨玲，你父亲的职业是什么？", t: 13, l: 9, w: 20, h: 8 },
+                    { en: "He's a policeman. Policemen keep us safe.", zh: "他是警察。警察保护我们的安全。", t: 18, l: 64, w: 30, h: 6 },
+                    { en: "What's your mother's job?", zh: "你母亲的职业是什么？", t: 39.5, l: 20, w: 25, h: 4 },
+                    { en: "She's a teacher. Teachers help children learn new things.", zh: "她是老师。老师帮助孩子们学习新知识。", t: 40.5, l: 60, w: 30, h: 9 },
+                    { en: "4 Our parents have great jobs. They help others in different ways.", zh: "我们的父母有伟大的职业。他们以不同的方式帮助他人。", t: 69.5, l: 8, w: 30, h: 11 },
+                    { en: "Happy Labour Day! What job would you like to do?", zh: "劳动节快乐！你想做什么工作？", t: 81.5, l: 34, w: 35, h: 7 },
+                    { en: "What makes the jobs great?", zh: "什么使这些职业变得伟大？", t: 92, l: 14, w: 45, h: 4 }
+                ]
+            }
+        ];
+
+        let pIdx = 0;
+        const synth = window.speechSynthesis;
+
+        window.onload = () => { 
+            loadVoices(); 
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = loadVoices;
+            }
+            render(); 
+        };
+
+        function loadVoices() {
+            const voices = synth.getVoices().filter(v => v.lang.includes('en'));
+            const select = document.getElementById('voiceSelect');
+            if(voices.length > 0) {
+                select.innerHTML = voices.map((v, i) => `<option value="${i}">${v.name.substring(0,15)}</option>`).join('');
+            } else {
+                select.innerHTML = '<option>默认声音</option>';
+            }
+        }
+
+        function render() {
+            const data = unitData[pIdx];
+            document.getElementById('bgImg').src = data.img;
+            document.querySelectorAll('.pageIndicator').forEach(el => el.innerText = (pIdx + 1) + " / " + unitData.length);
+            document.querySelectorAll('.prevBtn').forEach(btn => btn.disabled = (pIdx === 0));
+            document.querySelectorAll('.nextBtn').forEach(btn => btn.disabled = (pIdx === unitData.length - 1));
+            
+            document.getElementById('transBubble').style.display = "none";
+            document.querySelectorAll('.hotspot').forEach(h => h.remove());
+
+            data.hotspots.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'hotspot';
+                div.style.top = item.t + "%"; 
+                div.style.left = item.l + "%"; 
+                div.style.width = item.w + "%"; 
+                div.style.height = item.h + "%";
+                
+                div.onclick = function() {
+                    synth.cancel();
+                    const cleanText = item.en.replace(/^([0-9A-Z]+[\.\s]\s*)+/g, "").trim();
+                    const utter = new SpeechSynthesisUtterance(cleanText);
+                    utter.rate = document.getElementById('rate').value;
+                    const voices = synth.getVoices().filter(v => v.lang.includes('en'));
+                    const selIdx = document.getElementById('voiceSelect').value;
+                    if(voices[selIdx]) utter.voice = voices[selIdx];
+                    synth.speak(utter);
+
+                    if(document.getElementById('transToggle').checked) {
+                        const b = document.getElementById('transBubble');
+                        b.innerText = item.zh;
+                        b.style.display = "block";
+                        b.style.left = (item.l + item.w/2) + "%";
+                        
+                        // 智能判断：如果句子位置在页面顶部 (<20%)，气泡就往下弹
+                        if(item.t < 20) {
+                            b.style.top = (item.t + item.h + 0.5) + "%";
+                            b.style.bottom = "auto";
+                        } else {
+                            b.style.top = "auto";
+                            b.style.bottom = (100 - item.t + 2) + "%"; 
+                        }
+                    }
+                };
+                document.getElementById('bookBox').appendChild(div);
+            });
+        }
+
+        function changePage(step) { 
+            pIdx = Math.max(0, Math.min(unitData.length - 1, pIdx + step)); 
+            window.scrollTo({top:0, behavior:'smooth'}); 
+            render(); 
+        }
+    </script>
+</body>
+</html>
