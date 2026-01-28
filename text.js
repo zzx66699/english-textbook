@@ -1,4 +1,4 @@
-import {pagesTexts} from "./data.js"
+import {unitsTexts} from "./data.js"
 
 const totalUnit = 8; 
 const synth = window.speechSynthesis;
@@ -13,8 +13,8 @@ const p = new URLSearchParams(location.search);
 
 const grade = p.get("grade");
 const semester = p.get("semester");
-const unit = p.get("unit");
-const basePath = `./images/grade${grade}/semester${semester}/unit${unit || 1}/`
+const unit = p.get("unit") || 1;
+const basePath = `./images/grade${grade}/semester${semester}/unit${unit}/`
 
 
 // ---------- Initialization ----------
@@ -38,13 +38,13 @@ document.getElementById("unit-list").innerHTML = unitNavHtml
 
 // 2. Load the mode bar for the current unit
 document.getElementById("link-text").href =
-`./text.html?grade=${grade}&semester=${semester}&unit=${unit || 1}`;
+`./text.html?grade=${grade}&semester=${semester}&unit=${unit}`;
 
 document.getElementById("link-words").href =
-`./words.html?grade=${grade}&semester=${semester}&unit=${unit || 1}`;
+`./words.html?grade=${grade}&semester=${semester}&unit=${unit}`;
 
 document.getElementById("link-dictation").href =
-`./dictation.html?grade=${grade}&semester=${semester}&unit=${unit || 1}`;
+`./dictation.html?grade=${grade}&semester=${semester}&unit=${unit}`;
 
 
 // 3. Load voice from Web Speech API
@@ -147,15 +147,21 @@ function pageNumberRender() {
 
 
 // 7. Create hotmap
+const currentUnitTexts = unitsTexts.find(u => 
+        u.grade === Number(grade) && 
+        u.semester === Number(semester) &&
+        u.unit === Number(unit)
+)
+
 function renderHotMap(pageNumber){
     const hotmapLayer = document.getElementById("hotmap-layer");
     hotmapLayer.innerHTML = ""; 
 
-    const pageTexts = pagesTexts.find(page => 
+    const currentUnitPage = currentUnitTexts.pages.find(page => 
         page.image === `page${pageNumber}.png`
     )
 
-    hotmapLayer.innerHTML = pageTexts.sentences.map(sentence => {
+    hotmapLayer.innerHTML = currentUnitPage.sentences.map(sentence => {
         return `
             <div 
                 class="hotspot"
@@ -171,24 +177,11 @@ function renderHotMap(pageNumber){
     }
     ).join("")
     
+    
 }
 
-renderHotMap(1)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 8. Enable the English audio and translation
 document.getElementById("hotmap-layer").addEventListener("click", e => {
     if(e.target.dataset.page && e.target.dataset.id){
         const pageNumber = Number(e.target.dataset.page)
@@ -208,11 +201,11 @@ function handleListenHotspot(pageNumber, sentenceId) {
 }
 
 function getSentence(pageNumber, sentenceId) {
-    const page = pagesTexts.find(
-        p => p.image === `page${pageNumber}.png`
-    );
+    const currentUnitPage = currentUnitTexts.pages.find(
+        page => page.image === `page${pageNumber}.png`
+    )
 
-    return page.sentences.find(
+    return currentUnitPage.sentences.find(
         s => s.id === sentenceId
     );
 }
@@ -225,6 +218,7 @@ function speakEnglish(text) {
     utterance.voice = englishVoices[voiceSelect.selectedIndex];
     synth.speak(utterance);
 }
+
 
 function renderTranslation(text, left, top, h){
     document.getElementById("tranlation-layer").innerHTML = `
